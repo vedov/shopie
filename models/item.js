@@ -5,6 +5,11 @@ const ReviewSchema = require("./review").ReviewSchema;
 const TagSchema = require("./tag").TagSchema;
 
 const ItemSchema = new Schema({
+  shop: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   name: {
     type: String,
     required: true,
@@ -52,9 +57,6 @@ const ItemSchema = new Schema({
   datePublished: {
     type: Date,
     default: Date.now,
-  },
-  rating: {
-    type: Number,
   },
   review: [ReviewSchema],
 });

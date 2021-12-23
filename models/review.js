@@ -7,8 +7,12 @@ const ReviewSchema = new Schema({
     ref: "User",
     required: true,
   },
-  text: {
+  comment: {
     type: String,
+    required: true,
+  },
+  rating: {
+    type: Number,
     required: true,
   },
 });
