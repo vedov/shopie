@@ -12,7 +12,6 @@ const ShopSchema = new Schema({
     unique: true,
   },
   store: [LocationSchema],
-
   catalogue: [ItemSchema],
   review: [ReviewSchema],
   revenue: {

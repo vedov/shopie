@@ -35,11 +35,9 @@ const UserSchema = new Schema({
   },
   profileImgUrl: {
     type: String,
-    unique: true,
   },
   coverImgUrl: {
     type: String,
-    unique: true,
   },
   interests: [{ type: Schema.Types.ObjectId, ref: "Interest" }],
 });

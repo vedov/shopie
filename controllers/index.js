@@ -1,8 +1,5 @@
-const UserType = require("../models/UserType");
-const User = require("../models/User");
-
-exports.getRegister = async (req, res) => {
-  res.render("register");
+const getLanding = (req, res) => {
+  res.render("landing");
 };
 
 /* exports.postRegister = async (req, res, next) => {
@@ -53,7 +50,6 @@ exports.getRegister = async (req, res) => {
     }
   )(req, res, next);
 }; */
-
-exports.getLanding = (req, res) => {
-  res.render("landing");
+module.exports = {
+  getLanding,
 };

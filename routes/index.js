@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const index = require("../controllers/index");
-const {
+const indexController = require("../controllers/index");
+/* const {
   registrationValidator,
   loginValidator,
-} = require("../middleware/authValidators");
+} = require("../middleware/authValidators"); */
 
-router.get("/", index.getLanding);
-router.get("/register", index.getRegister);
+router.get("/", indexController.getLanding);
+
 /* router.post("/register", registrationValidator, index.postRegister); */
 module.exports = router;
