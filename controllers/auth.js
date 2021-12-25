@@ -2,11 +2,15 @@ const AuthService = require("../services/auths");
 const UserService = require("../services/users");
 const jwt = require("jsonwebtoken");
 
-/* const login = async (req, res) => {
-  const { email, password } = req.body;
+const login = async (req, res) => {
+  const { login, password } = req.body;
+  console.log(req.body);
   try {
     try {
-      const token = await AuthService.loginUsers(email, password);
+      const token = await AuthService.loginUsers(login, password);
+
+      console.log(token);
+      console.log(login, password);
       res.status(200).send({ token }).end();
     } catch (error) {
       res.status(404).send(error);
@@ -15,7 +19,7 @@ const jwt = require("jsonwebtoken");
     res.status(500).send(error);
   }
 };
- */
+
 const register = async (req, res) => {
   const user = req.body;
   if (!user.email) {
@@ -32,6 +36,7 @@ const register = async (req, res) => {
   try {
     if (await UserService.doesUserExist(user.email))
       throw { error: "Email already exists!" };
+
     const UserType = await UserService.getUserType(user.userType);
     user.userType = UserType;
 
@@ -47,6 +52,9 @@ const register = async (req, res) => {
 
 const getRegister = async (req, res) => {
   res.render("register");
+};
+const getLogin = async (req, res) => {
+  res.render("login");
 };
 
 /* const validate = async (req, res) => {
@@ -74,4 +82,6 @@ const getRegister = async (req, res) => {
 module.exports = {
   getRegister,
   register,
+  getLogin,
+  login,
 };

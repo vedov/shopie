@@ -9,7 +9,6 @@ class AuthService {
         id: user.id,
         email: user.email,
         username: user.username,
-        fullName: user.fullName,
       },
     };
 
@@ -19,7 +18,9 @@ class AuthService {
   }
 
   static async loginUsers(login, password) {
-    const user = await User.findOne({ email: login });
+    const user = await User.findOne({
+      $or: [{ email: login }, { username: login }],
+    });
     if (!user) {
       throw { error: "User doesn't exist!" };
     }
@@ -28,6 +29,8 @@ class AuthService {
     if (!isMatch) {
       throw { error: "Incorrect credentials!" };
     }
+    console.log("match", isMatch);
+    console.log(user);
     return this.createToken(user);
   }
 }

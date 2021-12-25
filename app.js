@@ -8,7 +8,8 @@ require("./mongodb");
 const app = express();
 
 const indexRouter = require("./routes/index");
-const authRouter = require("./routes/auths");
+const loginRouter = require("./routes/login");
+const registerRouter = require("./routes/register");
 const PORT = process.env.PORT;
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -20,7 +21,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
-app.use("/register", authRouter);
+app.use("/register", registerRouter);
+app.use("/login", loginRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
