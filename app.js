@@ -12,6 +12,7 @@ const indexRouter = require("./routes/index");
 const loginRouter = require("./routes/login");
 const registerRouter = require("./routes/register");
 const userRouter = require("./routes/user");
+const itemRouter = require("./routes/item");
 const PORT = process.env.PORT;
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -27,6 +28,7 @@ app.use("/", indexRouter);
 app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
+app.use("/item", itemRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {

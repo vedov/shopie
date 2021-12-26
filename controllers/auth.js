@@ -50,7 +50,7 @@ const register = async (req, res) => {
 };
 
 const getRegister = async (req, res) => {
-  res.render("register");
+  res.render("interests");
 };
 const getLogin = async (req, res) => {
   res.render("login");
