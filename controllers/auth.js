@@ -50,6 +50,9 @@ const register = async (req, res) => {
 };
 
 const getRegister = async (req, res) => {
+  res.render("register");
+};
+const getInterestSelect = async (req, res) => {
   res.render("interests");
 };
 const getLogin = async (req, res) => {
@@ -61,4 +64,5 @@ module.exports = {
   register,
   getLogin,
   login,
+  getInterestSelect,
 };
