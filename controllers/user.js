@@ -30,7 +30,7 @@ const getUserByEmail = async (req, res) => {
 const getDashboard = async (req, res) => {
   try {
     //Ternarni operator i da renderuje dashboard u odnosu na tip usera
-    res.render("tables", {});
+    res.render("shopDashboard", {});
     /* const user = await userService.getUser(req.params.id);
     res.status(200).json(user); */
   } catch (error) {
