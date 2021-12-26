@@ -18,14 +18,26 @@ const getUser = async (id) => {
   }
 };
 
-const doesUserExist = async (email) => {
+const doesUserExist = async (login) => {
   try {
-    return await User.findOne({ email: email });
+    return await await User.findOne({
+      $or: [{ email: login }, { username: login }],
+    });
   } catch (error) {
     throw {
       error: "Error while trying to check if user exists!",
       details: error,
     };
+  }
+};
+
+const getUserByUsername = async (username) => {
+  try {
+    const user = await User.findOne({ username });
+    if (!user) throw "User does not exist!";
+    return user;
+  } catch (error) {
+    throw { error: "Error while trying to fetch user!", details: error };
   }
 };
 
@@ -98,6 +110,7 @@ module.exports = {
   editUser,
   deleteUser,
   getUserByEmail,
+  getUserByUsername,
   doesUserExist,
   getUserType,
 };

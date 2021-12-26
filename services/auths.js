@@ -24,13 +24,13 @@ class AuthService {
     if (!user) {
       throw { error: "User doesn't exist!" };
     }
+
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
       throw { error: "Incorrect credentials!" };
     }
-    console.log("match", isMatch);
-    console.log(user);
+
     return this.createToken(user);
   }
 }
