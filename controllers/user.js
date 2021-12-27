@@ -1,9 +1,24 @@
+const { default: jwtDecode } = require("jwt-decode");
 const userService = require("../services/users");
+let token, jwt_decode, currentUser;
+
+const getUserTypeName = async (req, res) => {
+  try {
+    const name = await userService.getUserTypeById(req);
+    console.log("///////////", name);
+    return name;
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
 
 const getUsers = async (req, res) => {
   try {
     const users = await userService.getUsers();
-    res.status(200).json(users);
+    res.render("users", {
+      users: users,
+      userType: getUserTypeName,
+    });
   } catch (error) {
     res.status(404).json(error);
   }
@@ -29,10 +44,18 @@ const getUserByEmail = async (req, res) => {
 
 const getDashboard = async (req, res) => {
   try {
-    //Ternarni operator i da renderuje dashboard u odnosu na tip usera
-    res.render("shopDashboard", {});
-    /* const user = await userService.getUser(req.params.id);
-    res.status(200).json(user); */
+    token = req.cookies.token;
+    jwt_decode = await jwtDecode(token);
+    currentUser = jwt_decode.user;
+    const userType = await userService.getUserTypeById(
+      jwt_decode.user.userType
+    );
+    console.log("user", currentUser);
+    if (userType.name == "Customer")
+      res.render("customerDashboard", { user: currentUser });
+    else if (userType.name == "Shop")
+      res.render("shopDashboard", { user: currentUser });
+    else res.render("adminDashboard", { user: currentUser });
   } catch (error) {
     res.status(404).json(error);
   }
@@ -98,6 +121,7 @@ const editUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     const removedUser = await userService.deleteUser(req.params.id);
+    console.log("Deleted:", req.params.id);
     res.status(200).json(removedUser);
   } catch (error) {
     res.status(404).json(error);

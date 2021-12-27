@@ -7,10 +7,12 @@ const login = async (req, res) => {
   try {
     try {
       const token = await AuthService.loginUsers(login, password);
-      res.cookie("token", token);
-      res.status(200).send({ token }).end();
 
-      /* res.redirect("/user"); */
+      console.log(token);
+
+      /* res.status(200).send({ token }).end(); */
+      res.cookie("token", token);
+      res.redirect("/user");
     } catch (error) {
       res.status(404).send(error);
     }

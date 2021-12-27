@@ -36,20 +36,27 @@
 
             <!-- Content Row -->
             <div class="row mx-1 my-4">
+              <% for (var i = 0; i < users.length; i++) { %>
               <table class="table table-striped">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">ID</th>
                     <th scope="col">Name</th>
+                    <th scope="col">E-mail</th>
+                    <th scope="col">Type</th>
                     <th scope="col">CRUD</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
+                    <th scope="row" class="text-truncate">
+                      <%- users[i].id %>
+                    </th>
+                    <td><%- users[i].username %></td>
+                    <td><%- users[i].email %></td>
+                    <td><%- userType(users[i].userType) %></td>
                     <td>
-                      <div class="row justify-content-start">
+                      <div class="row">
                         <a
                           href="#"
                           class="
@@ -60,77 +67,25 @@
                           "
                           ><i class="fas fa-pen fa-sm text-white"></i
                         ></a>
+
                         <a
-                          href="#"
                           class="
                             d-none d-sm-inline-block
                             btn btn-sm btn-primary
                             shadow-sm
                             m-1
                           "
-                          ><i class="fas fa-trash fa-sm text-white"></i
-                        ></a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Jacob</td>
-                    <td>
-                      <div class="row justify-content-start">
-                        <a
-                          href="#"
-                          class="
-                            d-none d-sm-inline-block
-                            btn btn-sm btn-primary
-                            shadow-sm
-                            m-1
-                          "
-                          ><i class="fas fa-pen fa-sm text-white"></i
-                        ></a>
-                        <a
-                          href="#"
-                          class="
-                            d-none d-sm-inline-block
-                            btn btn-sm btn-primary
-                            shadow-sm
-                            m-1
-                          "
-                          ><i class="fas fa-trash fa-sm text-white"></i
-                        ></a>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">3</th>
-                    <td>Larry</td>
-                    <td>
-                      <div class="row justify-content-start">
-                        <a
-                          href="#"
-                          class="
-                            d-none d-sm-inline-block
-                            btn btn-sm btn-primary
-                            shadow-sm
-                            m-1
-                          "
-                          ><i class="fas fa-pen fa-sm text-white"></i
-                        ></a>
-                        <a
-                          href="#"
-                          class="
-                            d-none d-sm-inline-block
-                            btn btn-sm btn-primary
-                            shadow-sm
-                            m-1
-                          "
-                          ><i class="fas fa-trash fa-sm text-white"></i
-                        ></a>
+                          href="/users/delete/<%= users[i].id %>"
+                        >
+                          <i class="fas fa-trash fa-sm text-white"></i>
+                        </a>
                       </div>
                     </td>
                   </tr>
                 </tbody>
               </table>
+
+              <% } %>
             </div>
           </div>
           <!-- /.container-fluid -->

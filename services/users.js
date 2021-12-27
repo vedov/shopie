@@ -70,6 +70,15 @@ const getUserType = async (name) => {
   }
 };
 
+const getUserTypeById = async (id) => {
+  try {
+    const userType = await UserType.findById(id);
+    return userType.name;
+  } catch (error) {
+    throw { error: "Error while trying to find a user type", details: error };
+  }
+};
+
 const editUser = async (id, fieldsForEdit) => {
   try {
     const updates = Object.keys(fieldsForEdit);
@@ -113,4 +122,5 @@ module.exports = {
   getUserByUsername,
   doesUserExist,
   getUserType,
+  getUserTypeById,
 };
