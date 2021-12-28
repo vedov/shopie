@@ -54,7 +54,10 @@
                     </th>
                     <td><%- users[i].username %></td>
                     <td><%- users[i].email %></td>
-                    <td><%- userType(users[i].userType) %></td>
+                    <td>
+                      <% if (users[i].userType == '61c5e1bc22b19b6e50698e49') {
+                      %> Shop <% } else { %> Customer <% } %>
+                    </td>
                     <td>
                       <div class="row">
                         <a

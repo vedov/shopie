@@ -2,22 +2,12 @@ const { default: jwtDecode } = require("jwt-decode");
 const userService = require("../services/users");
 let token, jwt_decode, currentUser;
 
-const getUserTypeName = async (req, res) => {
-  try {
-    const name = await userService.getUserTypeById(req);
-    console.log("///////////", name);
-    return name;
-  } catch (error) {
-    res.status(404).json(error);
-  }
-};
-
 const getUsers = async (req, res) => {
   try {
     const users = await userService.getUsers();
+
     res.render("users", {
       users: users,
-      userType: getUserTypeName,
     });
   } catch (error) {
     res.status(404).json(error);

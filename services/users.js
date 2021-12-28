@@ -73,7 +73,9 @@ const getUserType = async (name) => {
 const getUserTypeById = async (id) => {
   try {
     const userType = await UserType.findById(id);
-    return userType.name;
+    const result = userType.name;
+
+    return result;
   } catch (error) {
     throw { error: "Error while trying to find a user type", details: error };
   }
