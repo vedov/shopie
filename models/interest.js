@@ -6,6 +6,9 @@ const InterestSchema = new Schema({
     type: String,
     required: true,
   },
+  imgUrl: {
+    type: String,
+  },
 });
 
 const Interest = mongoose.model("Interest", InterestSchema);

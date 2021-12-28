@@ -33,70 +33,28 @@
                     Before we continue, please select what you like.
                   </h1>
                 </div>
-                <div class="col-md-8 mx-auto">
+
+                <div class="col-md-12 mx-auto">
                   <div class="card-deck py-3">
+                    <% for (var i = 0; i < interests.length; i++) { %>
                     <div class="card">
                       <img
                         class="card-img-top"
-                        src="https://dummyimage.com/200x200/dee2e6/6c757d.jpg"
+                        style="
+                          max-height: 300px;
+                          max-width: 100%;
+                          object-fit: cover;
+                        "
+                        src="<%= interests[i].imgUrl %>"
                         alt="Card image cap"
                       />
                       <div class="card-body">
-                        <h5 class="card-title text-center">Card title</h5>
+                        <h5 class="card-title text-center">
+                          <%= interests[i].name %>
+                        </h5>
                       </div>
                     </div>
-                    <div class="card">
-                      <img
-                        class="card-img-top"
-                        src="https://dummyimage.com/200x200/dee2e6/6c757d.jpg"
-                        alt="Card image cap"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Card title</h5>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <img
-                        class="card-img-top"
-                        src="https://dummyimage.com/200x200/dee2e6/6c757d.jpg"
-                        alt="Card image cap"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Card title</h5>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="card-deck py-3">
-                    <div class="card">
-                      <img
-                        class="card-img-top"
-                        src="https://dummyimage.com/200x200/dee2e6/6c757d.jpg"
-                        alt="Card image cap"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Card title</h5>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <img
-                        class="card-img-top"
-                        src="https://dummyimage.com/200x200/dee2e6/6c757d.jpg"
-                        alt="Card image cap"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Card title</h5>
-                      </div>
-                    </div>
-                    <div class="card">
-                      <img
-                        class="card-img-top"
-                        src="https://dummyimage.com/200x200/dee2e6/6c757d.jpg"
-                        alt="Card image cap"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title text-center">Card title</h5>
-                      </div>
-                    </div>
+                    <% } %>
                   </div>
                 </div>
                 <hr />

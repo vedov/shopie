@@ -27,6 +27,7 @@ const addInterest = async (req, res) => {
       throw { error: "Interest already exists!" };
     const savedInterest = await interestService.addInterest({
       name: req.body.name,
+      imgUrl: req.body.imgUrl,
     });
     console.log("added", req.body.name);
     res.redirect("/interest");

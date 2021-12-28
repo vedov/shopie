@@ -1,5 +1,6 @@
 const AuthService = require("../services/auths");
 const UserService = require("../services/users");
+const InterestService = require("../services/interests");
 const jwt = require("jsonwebtoken");
 
 const login = async (req, res) => {
@@ -55,7 +56,8 @@ const getRegister = async (req, res) => {
   res.render("register");
 };
 const getInterestSelect = async (req, res) => {
-  res.render("interests");
+  const interests = await InterestService.getInterests();
+  res.render("userinterests", { interests: interests });
 };
 const getLogin = async (req, res) => {
   res.render("login");
