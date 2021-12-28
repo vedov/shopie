@@ -112,7 +112,8 @@ const deleteUser = async (req, res) => {
   try {
     const removedUser = await userService.deleteUser(req.params.id);
     console.log("Deleted:", req.params.id);
-    res.status(200).json(removedUser);
+    res.redirect("user/users");
+    /* res.status(200).json(removedUser); */
   } catch (error) {
     res.status(404).json(error);
   }

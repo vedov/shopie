@@ -13,6 +13,7 @@ router.get("/catalogue", userController.getCatalogue);
 router.get("/orders", userController.getOrders);
 router.get("/settings", userController.getSettings);
 router.get("/users", userController.getUsers);
+router.get("/users/:id", userController.getUser);
 router.get("/users/delete/:id", userController.deleteUser);
 
 /* router.post("/register", registrationValidator, index.postRegister); */

@@ -15,6 +15,9 @@ const loginRouter = require("./routes/login");
 const registerRouter = require("./routes/register");
 const userRouter = require("./routes/user");
 const itemRouter = require("./routes/item");
+const tagRouter = require("./routes/tag");
+const categoryRouter = require("./routes/category");
+const interestRouter = require("./routes/interest");
 const PORT = process.env.PORT;
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -32,6 +35,9 @@ app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
+app.use("/tag", tagRouter);
+app.use("/category", categoryRouter);
+app.use("/interest", interestRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
