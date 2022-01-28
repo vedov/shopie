@@ -59,12 +59,21 @@
                 </div>
                 <hr />
                 <div class="row mx-auto w-50">
-                  <button
-                    class="w-100 btn btn-lg btn-primary align-self-center"
-                    type="submit"
-                  >
-                    <a href="/user">Continue</a>
-                  </button>
+                  <form action="" method="POST">
+       
+                    <% for (var j = 0;j<interests.length; j++) {%>
+                      <input
+                        type="submit"
+                        class="w-100 btn btn-lg btn-primary align-self-center"
+                        id="interests"
+                        name="interests"
+                        placeholder="Interests"
+                        value="<%= interests[j].id %>"
+                      />
+                    <% }%>
+                
+                    </form>
+                  </form>
                 </div>
               </div>
             </div>

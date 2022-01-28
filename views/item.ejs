@@ -96,10 +96,14 @@
 
                   <div class="col-md-6">
                     <!-- Item ID-->
-                    <div class="small mb-1">Item ID: SKU: BST-498</div>
-                    <!-- Item ID-->
-                    <div class="small mb-1">Date Published</div>
-                    <h1 class="display-5 fw-bolder">Shop item template</h1>
+                    <div class="small mb-1">Item ID: <%- item.id %></div>
+                    <!-- Item Date-->
+                    <div class="small mb-1"><%- item.datePublished %></div>
+                    <!-- Shop-->
+                    <div class="small mb-1">
+                      Published By:&nbsp;<b><%- shop.fullName %></b>
+                    </div>
+                    <h1 class="display-5 fw-bolder"><%- item.name %></h1>
                     <!-- Brand & Categories-->
                     <div class="fs-5 mb-1">
                       <span class="text-decoration-line-through">Brand</span>
@@ -120,12 +124,7 @@
                     <div class="h4 my-4">
                       <span class="text-decoration-line-through">$45.00</span>
                     </div>
-                    <p class="lead">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Praesentium at dolorem quidem modi. Nam sequi consequatur
-                      obcaecati excepturi alias magni, accusamus eius blanditiis
-                      delectus ipsam minima ea iste laborum vero?
-                    </p>
+                    <p class="lead"><%- item.shortDesc %></p>
                     <div class="d-flex">
                       <button
                         class="btn btn-outline-dark flex-shrink-0 mr-4"
@@ -150,12 +149,7 @@
               <div class="container px-4 px-lg-5 mt-5">
                 <h2 class="fw-bolder mb-4">Related products</h2>
                 <div
-                  class="
-                    row
-                    gx-4 gx-lg-5
-                    row-cols-2 row-cols-md-3 row-cols-xl-4
-                    justify-content-center
-                  "
+                  class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
                 >
                   <div class="col mb-5">
                     <div class="card h-100">
@@ -208,13 +202,7 @@
                           <h5 class="fw-bolder">Special Item</h5>
                           <!-- Product reviews-->
                           <div
-                            class="
-                              d-flex
-                              justify-content-center
-                              small
-                              text-warning
-                              mb-2
-                            "
+                            class="d-flex justify-content-center small text-warning mb-2"
                           >
                             <div class="bi-star-fill"></div>
                             <div class="bi-star-fill"></div>
@@ -295,13 +283,7 @@
                           <h5 class="fw-bolder">Popular Item</h5>
                           <!-- Product reviews-->
                           <div
-                            class="
-                              d-flex
-                              justify-content-center
-                              small
-                              text-warning
-                              mb-2
-                            "
+                            class="d-flex justify-content-center small text-warning mb-2"
                           >
                             <div class="bi-star-fill"></div>
                             <div class="bi-star-fill"></div>

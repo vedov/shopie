@@ -1,0 +1,113 @@
+<div
+  class="modal fade"
+  id="addItemModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+        <button
+          class="close"
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Please add a new item.
+        <form class="item" action="" method="POST" id="form">
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              placeholder="Enter Product Name"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="brand"
+              name="brand"
+              placeholder="Enter Product Brand"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="type"
+              name="type"
+              placeholder="Enter Product Type"
+            />
+          </div>
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              id="shortDesc"
+              name="shortDesc"
+              rows="6"
+              placeholder="Enter Product Description"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="category"
+              name="category"
+              placeholder="Enter Product Category"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="tags"
+              name="tags"
+              placeholder="Enter Product Tags"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="imageUrls"
+              name="imageUrls"
+              placeholder="Image URLs"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="number"
+              class="form-control"
+              id="stock"
+              name="stock"
+              placeholder="Enter Product Stock"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="number"
+              class="form-control"
+              id="price"
+              name="price"
+              placeholder="Enter Product Price"
+            />
+          </div>
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Add
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

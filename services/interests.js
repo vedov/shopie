@@ -38,6 +38,9 @@ const addInterest = async (interest) => {
   }
 };
 
+
+
+
 const editInterest = async (id, fieldsForEdit) => {
   try {
     const updates = Object.keys(fieldsForEdit);

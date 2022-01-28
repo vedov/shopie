@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../views/components/head/head.ejs') -%>
+
+  <body id="page-top">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <%- include('../views/components/sidebar/adminSidebar.ejs') -%>
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+          <%- include('../views/components/navbar/navbar.ejs') %>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <!-- Page Heading -->
+            <div
+              class="d-sm-flex align-items-center justify-content-between mb-4"
+            >
+              <h1 class="h3 mb-0 text-gray-800">Items</h1>
+              <a
+                class="nav-link collapsed d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                href="#"
+                data-toggle="modal"
+                data-target="#addItemModal"
+              >
+                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                <span>Add New Item</span>
+              </a>
+            </div>
+
+            <!-- Content Row -->
+            <div class="row mx-1 my-4">
+              <% for (var i = 0; i < items.length; i++) { %>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">CRUD</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" class="text-truncate">
+                      <%- items[i].id %>
+                    </th>
+                    <td><%- items[i].name %></td>
+
+                    <td>
+                      <div class="row">
+                        <a
+                          href="#"
+                          class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm m-1"
+                          ><i class="fas fa-pen fa-sm text-white"></i
+                        ></a>
+
+                        <a
+                          class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm m-1"
+                          href="/users/delete/<%= items[i].id %>"
+                        >
+                          <i class="fas fa-trash fa-sm text-white"></i>
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <% } %>
+            </div>
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <%- include('../views/components/footer/footer.ejs') -%>
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <%- include('../views/components/scrollToTop/scrollToTop.ejs') -%>
+
+    <!-- Logout Modal-->
+    <%- include('../views/components/logout/logout.ejs') -%>
+    <!-- Add Interest Modal-->
+    <%- include('../views/components/forms/item/addItem.ejs') -%>
+
+    <!-- Scripts-->
+    <%- include('../views/components/scripts/scripts.ejs') -%>
+  </body>
+</html>

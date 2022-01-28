@@ -16,35 +16,29 @@ const ItemSchema = new Schema({
   },
   brand: {
     type: String,
-    required: true,
   },
   type: {
     type: Schema.Types.ObjectId,
     ref: "ItemType",
-    required: true,
   },
   shortDesc: {
     type: String,
-    required: true,
   },
   category: [
     {
       type: Schema.Types.ObjectId,
       ref: "Category",
-      required: true,
     },
   ],
   tags: [
     {
       type: Schema.Types.ObjectId,
       ref: "Tag",
-      required: true,
     },
   ],
   imageUrls: [
     {
       type: String,
-      required: true,
     },
   ],
   stock: {
@@ -52,13 +46,17 @@ const ItemSchema = new Schema({
   },
   price: {
     type: Number,
-    required: true,
   },
   datePublished: {
     type: Date,
     default: Date.now,
   },
-  review: [ReviewSchema],
+  review: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
 const Item = mongoose.model("Item", ItemSchema);
 

@@ -15,7 +15,7 @@ const getTags = async (req, res) => {
 const getTag = async (req, res) => {
   try {
     const tag = await tagService.getTag(req.params.id);
-    res.status(200).json(user);
+    res.status(200).json(tag);
   } catch (error) {
     res.status(404).json(error);
   }
@@ -28,7 +28,7 @@ const addTag = async (req, res) => {
     const savedTag = await tagService.addTag({
       name: req.body.name,
     });
-    console.log("added", req.body.name);
+
     res.redirect("/tag");
   } catch (error) {
     res.status(400).json(error);
