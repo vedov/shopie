@@ -51,13 +51,18 @@ const getItem = async (req, res) => {
 const addItem = async (req, res) => {
   try {
     const shop = await getCurrentUser(req, res);
+
     const savedItem = await itemService.addItem({
       shop: shop._id,
       name: req.body.name,
       shortDesc: req.body.shortDesc,
+      imageUrls: req.files,
     });
 
-    res.redirect("/user/catalogue");
+    // console.log(savedItem);
+    console.log(req.body);
+    console.log(req.files);
+    // res.redirect("/user/catalogue");
   } catch (error) {
     res.status(400).json(error);
   }

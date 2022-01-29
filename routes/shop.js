@@ -3,14 +3,14 @@ const router = express.Router();
 const userController = require("../controllers/user");
 const itemController = require("../controllers/item");
 const authMiddleware = require("../middleware/auth");
-
+const parser = require("../middleware/cloudinary");
 /* const {
   registrationValidator,
   loginValidator,
 } = require("../middleware/authValidators"); */
 
 router.get("/", userController.getDashboard);
-router.post("/", itemController.addItem);
+router.post("/", parser.array("imageUrls"), itemController.addItem);
 router.get("/catalogue", itemController.getCatalogue);
 router.get("/orders", userController.getOrders);
 router.get("/settings", userController.getSettings);
