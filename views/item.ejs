@@ -23,7 +23,7 @@
             <section class="py-5">
               <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                  <div class="col-md-6">
+                  <div class="col-md-6 ">
                     <div
                       id="carouselExampleIndicators"
                       class="carousel slide"
@@ -45,11 +45,12 @@
                         ></li>
                       </ol>
                       <div class="carousel-inner">
-                        <div class="carousel-item active">
+                        <div class="carousel-item active ">
                           <img
                             class="d-block w-100"
                             src="<%= item.imageUrls[0] %>"
                             alt="First slide"
+                            style='height: 500px; object-fit:contain'
                           />
                         </div>
                         <div class="carousel-item">
@@ -57,13 +58,15 @@
                             class="d-block w-100"
                             src="<%= item.imageUrls[1] %>"
                             alt="Second slide"
+                            style='height: 500px; object-fit:contain'
                           />
                         </div>
                         <div class="carousel-item">
                           <img
                             class="d-block w-100"
-                            src="<%= item.imageUrls[0] %>"
+                            src="<%= item.imageUrls[2] %>"
                             alt="Third slide"
+                            style='height: 500px; object-fit:contain'
                           />
                         </div>
                       </div>
@@ -98,16 +101,16 @@
                     <!-- Item ID-->
                     <div class="small mb-1">Item ID: <%- item.id %></div>
                     <!-- Item Date-->
-                    <div class="small mb-1"><%- item.datePublished %></div>
+                    <div class="small mb-1">Published:&nbsp;<b><%- item.datePublished.toLocaleString('en-GB') %></b></div>
                     <!-- Shop-->
                     <div class="small mb-1">
-                      Published By:&nbsp;<b><%- shop.fullName %></b>
+                      By:&nbsp;<b><%- shop.fullName %></b>
                     </div>
                     <h1 class="display-5 fw-bolder"><%- item.name %></h1>
                     <!-- Brand & Categories-->
                     <div class="fs-5 mb-1">
-                      <span class="text-decoration-line-through">Brand</span>
-                      <span class="text-decoration-line-through">Category</span>
+                      <span class="badge badge-dark"><%- item.brand %></span>
+                      <span class="badge badge-info"><%- category %></span>
                     </div>
                     <!-- Tags-->
                     <div class="fs-5 mb-1">
@@ -116,15 +119,12 @@
                       <span class="text-decoration-line-through">Tag</span>
                       <span class="text-decoration-line-through">Tag</span>
                     </div>
-                    <!-- Type -->
-                    <div class="fs-5 mb-1">
-                      <span class="text-decoration-line-through">Product</span>
-                    </div>
+
 
                     <div class="h4 my-4">
                       <span class="text-decoration-line-through">$45.00</span>
                     </div>
-                    <p class="lead"><%- item.shortDesc %></p>
+                    <p class="p"><%- item.shortDesc %></p>
                     <div class="d-flex">
                       <button
                         class="btn btn-outline-dark flex-shrink-0 mr-4"

@@ -1,6 +1,8 @@
 const itemService = require("../services/items");
 const { default: jwtDecode } = require("jwt-decode");
 const userService = require("../services/users");
+const categoryService = require("../services/categories");
+const itemTypeService = require("../services/itemType");
 
 const getCurrentUser = async (req, res) => {
   try {
@@ -42,7 +44,14 @@ const getItem = async (req, res) => {
   try {
     const item = await itemService.getItem(req.params.id);
     const shop = await userService.getUser(item.shop._id);
-    res.render("item", { item: item, shop: shop });
+    const category = await categoryService.getCategory(item.category._id);
+    const itemType = await itemTypeService.getItemType(item.type._id);
+    res.render("item", {
+      item: item,
+      shop: shop,
+      category: category,
+      itemType: itemType,
+    });
   } catch (error) {
     res.status(404).json(error);
   }
@@ -51,24 +60,29 @@ const getItem = async (req, res) => {
 const addItem = async (req, res) => {
   try {
     const shop = await getCurrentUser(req, res);
-    console.log(req.body);
     const data = req.files;
+
     let imageUrls = [];
     data.forEach(function (item) {
-      console.log(item.path);
       imageUrls.push(item.path);
     });
-    console.log(imageUrls);
+    let category = JSON.parse(req.body.category);
+    let type = JSON.parse(req.body.type);
+    console.log(type);
     const savedItem = await itemService.addItem({
       shop: shop._id,
       name: req.body.name,
+      brand: req.body.brand,
+      type: type._id,
       shortDesc: req.body.shortDesc,
+      category: category._id,
+      stock: req.body.stock,
+      price: req.body.price,
       imageUrls: imageUrls,
     });
 
     console.log(savedItem);
-
-    res.redirect("/user/catalogue");
+    //res.redirect("/user/catalogue");
   } catch (error) {
     res.status(400).json(error);
   }

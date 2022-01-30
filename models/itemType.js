@@ -10,4 +10,4 @@ const ItemTypeSchema = new Schema({
 
 const ItemType = mongoose.model("ItemType", ItemTypeSchema);
 
-module.exports = ShopType;
+module.exports = ItemType;

@@ -24,12 +24,11 @@ const ItemSchema = new Schema({
   shortDesc: {
     type: String,
   },
-  category: [
-    {
-      type: Schema.Types.ObjectId,
-      ref: "Category",
-    },
-  ],
+  category: {
+    type: Schema.Types.ObjectId,
+    ref: "Category",
+  },
+
   tags: [
     {
       type: Schema.Types.ObjectId,

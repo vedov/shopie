@@ -47,13 +47,14 @@
             />
           </div>
           <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              id="type"
-              name="type"
-              placeholder="Enter Product Type"
-            />
+              <label for="type">Select Product Type</label>
+              <select class="form-control" id="type" name="type">
+                <% for (var i = 0; i < types.length; i++) { %>
+                <option label="<%= types[i].name%>">
+                  <%= JSON.stringify(types[i])%>
+                </option>
+                <% } %>
+              </select>
           </div>
           <div class="form-group">
             <textarea
@@ -65,13 +66,14 @@
             ></textarea>
           </div>
           <div class="form-group">
-            <input
-              type="text"
-              class="form-control"
-              id="category"
-              name="category"
-              placeholder="Enter Product Category"
-            />
+            <label for="category">Example select</label>
+            <select class="form-control" id="category" name="category">
+              <% for (var i = 0; i < categories.length; i++) { %>
+              <option label="<%= categories[i].name%>">
+                <%= JSON.stringify(categories[i])%>
+              </option>
+              <% } %>
+            </select>
           </div>
           <div class="form-group">
             <input

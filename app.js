@@ -17,6 +17,7 @@ const itemRouter = require("./routes/item");
 const tagRouter = require("./routes/tag");
 const categoryRouter = require("./routes/category");
 const interestRouter = require("./routes/interest");
+const itemTypeRouter = require("./routes/itemType");
 const PORT = process.env.PORT;
 
 // View engine setup
@@ -40,6 +41,7 @@ app.use("/item", itemRouter);
 app.use("/tag", tagRouter);
 app.use("/category", categoryRouter);
 app.use("/interest", interestRouter);
+app.use("/itemtype", itemTypeRouter);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
