@@ -1,0 +1,107 @@
+<div
+  class="modal fade"
+  id="addReviewModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Review</h5>
+        <button
+          class="close"
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row py-4">
+          <div class="col-md-6">
+            <img
+              src="<%- item.imageUrls[0] %>"
+              style="max-width: 200px; max-height: 200px; object-fit: contain"
+            />
+          </div>
+          <div class="col-md-6 d-flex flex-column">
+            <span class="h5"><%- item.name %></span>
+            <div class="d-flex justify-content-between py-2">
+              <span class="h5" style="margin: auto 0">$<%- item.price %></span>
+              <div class="d-flex">
+                <span class="p" style="margin: auto 0"
+                  ><%- Math.round((rating + Number.EPSILON) * 10) / 10 %></span
+                >
+                <i class="fas fa-star star"></i>
+              </div>
+            </div>
+            <span
+              class="p"
+              style="
+                display: block;
+                text-overflow: ellipsis;
+                word-wrap: break-word;
+                overflow: hidden;
+                max-height: 7.2em;
+              "
+              ><%- item.shortDesc %></span
+            >
+          </div>
+        </div>
+
+        <form
+          class="tag"
+          action="/item/addReview/<%- item.id %>"
+          method="POST"
+          id="form"
+        >
+          <span class="span">Rating</span>
+          <div class="form-group">
+            <fieldset class="rating">
+              <input type="radio" id="star5" name="rating" value="5" />
+              <label class="full" for="star5" title="Awesome - 5 stars"></label>
+              <input type="radio" id="star4" name="rating" value="4" />
+              <label
+                class="full"
+                for="star4"
+                title="Pretty good - 4 stars"
+              ></label>
+
+              <input type="radio" id="star3" name="rating" value="3" />
+              <label class="full" for="star3" title="Meh - 3 stars"></label>
+
+              <input type="radio" id="star2" name="rating" value="2" />
+              <label
+                class="full"
+                for="star2"
+                title="Kinda bad - 2 stars"
+              ></label>
+              <input type="radio" id="star1" name="rating" value="1" />
+              <label
+                class="full"
+                for="star1"
+                title="Sucks big time - 1 star"
+              ></label>
+            </fieldset>
+          </div>
+          <div class="form-group">
+            <textarea
+              class="form-control"
+              id="comment"
+              name="comment"
+              rows="6"
+              placeholder="Enter Comment"
+            ></textarea>
+          </div>
+
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Add
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

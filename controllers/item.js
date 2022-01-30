@@ -3,7 +3,7 @@ const { default: jwtDecode } = require("jwt-decode");
 const userService = require("../services/users");
 const categoryService = require("../services/categories");
 const itemTypeService = require("../services/itemType");
-
+const reviewService = require("../services/reviews");
 const getCurrentUser = async (req, res) => {
   try {
     const token = req.cookies.token;
@@ -46,12 +46,31 @@ const getItem = async (req, res) => {
     const shop = await userService.getUser(item.shop._id);
     const category = await categoryService.getCategory(item.category._id);
     const itemType = await itemTypeService.getItemType(item.type._id);
+    const reviews = await reviewService.getItemReviews(item);
+    const avgRating = await getAvgItemRating(req, res);
+
     res.render("item", {
       item: item,
       shop: shop,
       category: category,
       itemType: itemType,
+      reviews: reviews,
+      rating: avgRating,
     });
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
+const getAvgItemRating = async (req, res) => {
+  try {
+    const item = await itemService.getItem(req.params.id);
+    const reviews = await reviewService.getItemReviews(item);
+    let avgRating = 0;
+    for (i = 0; i < reviews.length; i++) {
+      avgRating += reviews[i].rating;
+    }
+    return avgRating / reviews.length;
   } catch (error) {
     res.status(404).json(error);
   }

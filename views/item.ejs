@@ -21,9 +21,10 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <section class="py-5">
+              <!-- Item Info-->
               <div class="container px-4 px-lg-5 my-5">
                 <div class="row gx-4 gx-lg-5 align-items-center">
-                  <div class="col-md-6 ">
+                  <div class="col-md-6">
                     <div
                       id="carouselExampleIndicators"
                       class="carousel slide"
@@ -45,12 +46,12 @@
                         ></li>
                       </ol>
                       <div class="carousel-inner">
-                        <div class="carousel-item active ">
+                        <div class="carousel-item active">
                           <img
                             class="d-block w-100"
                             src="<%= item.imageUrls[0] %>"
                             alt="First slide"
-                            style='height: 500px; object-fit:contain'
+                            style="height: 500px; object-fit: contain"
                           />
                         </div>
                         <div class="carousel-item">
@@ -58,7 +59,7 @@
                             class="d-block w-100"
                             src="<%= item.imageUrls[1] %>"
                             alt="Second slide"
-                            style='height: 500px; object-fit:contain'
+                            style="height: 500px; object-fit: contain"
                           />
                         </div>
                         <div class="carousel-item">
@@ -66,7 +67,7 @@
                             class="d-block w-100"
                             src="<%= item.imageUrls[2] %>"
                             alt="Third slide"
-                            style='height: 500px; object-fit:contain'
+                            style="height: 500px; object-fit: contain"
                           />
                         </div>
                       </div>
@@ -101,17 +102,32 @@
                     <!-- Item ID-->
                     <div class="small mb-1">Item ID: <%- item.id %></div>
                     <!-- Item Date-->
-                    <div class="small mb-1">Published:&nbsp;<b><%- item.datePublished.toLocaleString('en-GB') %></b></div>
+                    <div class="small mb-1">
+                      Published:&nbsp;<b
+                        ><%- item.datePublished.toLocaleString('en-GB') %></b
+                      >
+                    </div>
                     <!-- Shop-->
                     <div class="small mb-1">
                       By:&nbsp;<b><%- shop.fullName %></b>
                     </div>
                     <h1 class="display-5 fw-bolder"><%- item.name %></h1>
+                    <!-- Rating -->
+                    <div class="fs-5 mb-1">
+                      <div class="d-flex">
+                        <span class="h5" style="margin: auto 0"
+                          ><%- Math.round((rating + Number.EPSILON) * 10) / 10
+                          %></span
+                        >
+                        <i class="fas fa-star star"></i>
+                      </div>
+                    </div>
                     <!-- Brand & Categories-->
                     <div class="fs-5 mb-1">
                       <span class="badge badge-dark"><%- item.brand %></span>
                       <span class="badge badge-info"><%- category %></span>
                     </div>
+
                     <!-- Tags-->
                     <div class="fs-5 mb-1">
                       <span class="text-decoration-line-through">Tag</span>
@@ -120,10 +136,15 @@
                       <span class="text-decoration-line-through">Tag</span>
                     </div>
 
-
-                    <div class="h4 my-4">
-                      <span class="text-decoration-line-through">$45.00</span>
+                    <div class="d-flex flex-column my-4">
+                      <span class="text-decoration-line-through h2"
+                        >$<%- item.price %></span
+                      >
+                      <span class="text-decoration-line-through"
+                        >In Stock:&nbsp;<%- item.stock %></span
+                      >
                     </div>
+
                     <p class="p"><%- item.shortDesc %></p>
                     <div class="d-flex">
                       <button
@@ -140,10 +161,51 @@
                         <i class="far fa-heart"></i>
                       </button>
                     </div>
+                    <div class="d-flex">
+                      <a
+                        class="btn btn-outline-dark flex-shrink-0"
+                        href="#"
+                        data-toggle="modal"
+                        data-target="#addReviewModal"
+                      >
+                        <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
+                        <span>Add Review</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
-
+              <!-- Item Reviews-->
+              <div class="container px-4 px-lg-5 my-5">
+                <div class="row gx-4 gx-lg-5 align-items-start">
+                  <div class="col-md-12">
+                    <h1 class="display-5 fw-bolder">Reviews</h1>
+                  </div>
+                  <div class="col-md-12">
+                    <ol class="list-group list-group-numbered">
+                      <% for (var i = 0; i < reviews.length; i++) { %>
+                      <li
+                        class="list-group-item d-flex justify-content-between align-items-start"
+                      >
+                        <div class="ms-2 me-auto">
+                          <div class="fw-bold">
+                            <b><%= reviews[i].user %></b>
+                          </div>
+                          <%= reviews[i].comment %>
+                        </div>
+                        <div class="d-flex">
+                          <span class="h5" style="margin: auto 0"
+                            ><%= reviews[i].rating %></span
+                          >
+                          <i class="fas fa-star star"></i>
+                        </div>
+                      </li>
+                      <% } %>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+            </section>
           </div>
           <!-- /.container-fluid -->
         </div>
@@ -159,7 +221,8 @@
 
     <!-- Scroll to Top Button-->
     <%- include('../views/components/scrollToTop/scrollToTop.ejs') -%>
-
+    <!-- Add Review Modal-->
+    <%- include('../views/components/forms/review/addReview.ejs') -%>
     <!-- Logout Modal-->
     <%- include('../views/components/logout/logout.ejs') -%>
 
