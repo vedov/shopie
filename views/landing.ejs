@@ -82,24 +82,22 @@
               <div class="container">
                 <div class="row justify-content-center">
                   <div class="col-lg-12 col-md-12 align-content-center">
-                    <form>
+                    
+                    <form class="search"
+          action=""
+          id="search-form"
+          method="GET">
                       <div class="form-row">
                         <div class="form-group col-md-5">
                           <input
                             type="text"
                             class="form-control my-2 my-lg-1"
-                            id="inputtext4"
+                            id="searchtext"
                             placeholder="What are you looking for"
+                            onchange="searchItems(this.value)"
                           />
                         </div>
-                        <div class="form-group col-md-5">
-                          <select class="w-100 form-control mt-lg-1 mt-md-2">
-                            <option>Category</option>
-                            <option value="1">Top rated</option>
-                            <option value="2">Lowest Price</option>
-                            <option value="4">Highest Price</option>
-                          </select>
-                        </div>
+                        
                         <div class="form-group col-md-2 align-self-center">
                           <button type="submit" class="btn btn-primary">
                             Search Now
@@ -269,5 +267,14 @@
       integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
       crossorigin="anonymous"
     ></script>
+    <script>
+
+     
+      searchItems = function(text){
+        
+        console.log(text);
+        document.getElementById('search-form').action = '/search/'+text;
+      }
+    </script>
   </body>
 </html>

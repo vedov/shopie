@@ -50,6 +50,33 @@ const getCatalogue = async (req, res) => {
   }
 };
 
+const getItemsByCategory = async (req, res) => {
+  try {
+    const category = await categoryService.getCategory(req.params.id);
+    const products = await itemService.getItemsByCategory(req.params.id);
+    console.log(products);
+    res.render("searchCategory", {
+      products: products,
+      category: category,
+    });
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
+const getItemByName = async (req, res) => {
+  try {
+    const products = await itemService.getItemByName(req.params.name);
+    console.log(products);
+    res.render("searchName", {
+      products: products,
+      name: req.params.name,
+    });
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
 const getItem = async (req, res) => {
   try {
     const item = await itemService.getItem(req.params.id);
@@ -163,6 +190,8 @@ module.exports = {
   getItems,
   getRandomItems,
   addItem,
+  getItemByName,
   getCurrentUser,
   getCatalogue,
+  getItemsByCategory,
 };

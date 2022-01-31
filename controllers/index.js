@@ -1,9 +1,16 @@
 const itemService = require("../services/items");
+const categoryService = require("../services/categories");
 const reviewService = require("../services/reviews");
 const getLanding = async (req, res) => {
+  const categories = await categoryService.getCategories(req, res);
   const randomItems = await getRandomItems(req, res);
   const bestItems = await getBestItems(req, res);
-  res.render("landing", { randomItems: randomItems, bestItems: bestItems });
+
+  res.render("landing", {
+    randomItems: randomItems,
+    bestItems: bestItems,
+    categories: categories,
+  });
 };
 
 const getRandomItems = async () => {

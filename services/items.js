@@ -18,6 +18,28 @@ const getCatalogue = async (shop) => {
   }
 };
 
+const getItemsByCategory = async (category) => {
+  try {
+    return await Item.find({ category: category });
+  } catch (error) {
+    throw {
+      error: "Error while trying to get Category!",
+      details: error,
+    };
+  }
+};
+
+const getItemByName = async (name) => {
+  try {
+    return await Item.find({ name: { $regex: name } });
+  } catch (error) {
+    throw {
+      error: "Error while trying to get Item!",
+      details: error,
+    };
+  }
+};
+
 const getItem = async (id) => {
   try {
     const item = await Item.findById(id);
@@ -86,7 +108,9 @@ const deleteItem = async (id) => {
 module.exports = {
   getItems,
   getItem,
+  getItemByName,
   addItem,
   doesItemExist,
   getCatalogue,
+  getItemsByCategory,
 };
