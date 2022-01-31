@@ -50,6 +50,9 @@ const ItemSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  avgRating: {
+    type: Number,
+  },
   review: [
     {
       type: Schema.Types.ObjectId,

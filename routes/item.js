@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const itemController = require("../controllers/item");
 const reviewController = require("../controllers/review");
+const tagController = require("../controllers/tag");
 const parser = require("../middleware/cloudinary");
 router.get("/", itemController.getItems);
 router.get("/:id", itemController.getItem);

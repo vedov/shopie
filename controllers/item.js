@@ -4,6 +4,7 @@ const userService = require("../services/users");
 const categoryService = require("../services/categories");
 const itemTypeService = require("../services/itemType");
 const reviewService = require("../services/reviews");
+const tagService = require("../services/tags");
 const getCurrentUser = async (req, res) => {
   try {
     const token = req.cookies.token;
@@ -22,6 +23,15 @@ const getItems = async (req, res) => {
     res.render("items", {
       items: Items,
     });
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
+const getRandomItems = async (req, res) => {
+  try {
+    const items = await itemService.getItems();
+    console.log(items[Math.floor(Math.random() * items.length)]);
   } catch (error) {
     res.status(404).json(error);
   }
@@ -47,15 +57,23 @@ const getItem = async (req, res) => {
     const category = await categoryService.getCategory(item.category._id);
     const itemType = await itemTypeService.getItemType(item.type._id);
     const reviews = await reviewService.getItemReviews(item);
-    const avgRating = await getAvgItemRating(req, res);
+    const tags = [];
+    for (tag of item.tags) {
+      tags.push(await tagService.getTag(tag));
+    }
 
+    const avgRating = await getAvgItemRating(req, res);
+    item.avgRating = avgRating;
+    console.log(item);
+    console.log(item.avgRating);
     res.render("item", {
       item: item,
       shop: shop,
       category: category,
       itemType: itemType,
       reviews: reviews,
-      rating: avgRating,
+      rating: item.avgRating,
+      tags: tags,
     });
   } catch (error) {
     res.status(404).json(error);
@@ -80,14 +98,24 @@ const addItem = async (req, res) => {
   try {
     const shop = await getCurrentUser(req, res);
     const data = req.files;
+    const tagsData = req.body.tags;
+    let tempTags = [];
+    let tags = [];
+    tempTags = tagsData.split(",");
 
+    for (item of tempTags) {
+      const tag = '{ "name":"' + item + '"}';
+      await tagService.addTag(JSON.parse(tag));
+      await tagService.getTagByName(item).then((data) => {
+        tags.push(data._id);
+      });
+    }
     let imageUrls = [];
     data.forEach(function (item) {
       imageUrls.push(item.path);
     });
     let category = JSON.parse(req.body.category);
     let type = JSON.parse(req.body.type);
-    console.log(type);
     const savedItem = await itemService.addItem({
       shop: shop._id,
       name: req.body.name,
@@ -97,11 +125,13 @@ const addItem = async (req, res) => {
       category: category._id,
       stock: req.body.stock,
       price: req.body.price,
+      tags: tags,
       imageUrls: imageUrls,
     });
 
     console.log(savedItem);
-    //res.redirect("/user/catalogue");
+
+    res.redirect("/user/catalogue");
   } catch (error) {
     res.status(400).json(error);
   }
@@ -131,6 +161,7 @@ const editItem = async (req, res) => {
 module.exports = {
   getItem,
   getItems,
+  getRandomItems,
   addItem,
   getCurrentUser,
   getCatalogue,

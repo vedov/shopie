@@ -116,8 +116,8 @@
                     <div class="fs-5 mb-1">
                       <div class="d-flex">
                         <span class="h5" style="margin: auto 0"
-                          ><%- Math.round((rating + Number.EPSILON) * 10) / 10
-                          %></span
+                          ><%- Math.round((item.avgRating + Number.EPSILON) *
+                          10) / 10 %></span
                         >
                         <i class="fas fa-star star"></i>
                       </div>
@@ -130,10 +130,11 @@
 
                     <!-- Tags-->
                     <div class="fs-5 mb-1">
-                      <span class="text-decoration-line-through">Tag</span>
-                      <span class="text-decoration-line-through">Tag</span>
-                      <span class="text-decoration-line-through">Tag</span>
-                      <span class="text-decoration-line-through">Tag</span>
+                      <% for (var i = 0; i < tags.length; i++) { %>
+                      <span class="badge badge-pill badge-secondary"
+                        ><%= tags[i] %></span
+                      >
+                      <% } %>
                     </div>
 
                     <div class="d-flex flex-column my-4">
@@ -154,16 +155,8 @@
                         <i class="bi-cart-fill me-1"></i>
                         Edit Item or Add To Cart
                       </button>
-                      <button
-                        class="btn btn-outline-dark flex-shrink-0"
-                        type="button"
-                      >
-                        <i class="far fa-heart"></i>
-                      </button>
-                    </div>
-                    <div class="d-flex">
                       <a
-                        class="btn btn-outline-dark flex-shrink-0"
+                        class="btn btn-outline-dark flex-shrink-0 mr-4"
                         href="#"
                         data-toggle="modal"
                         data-target="#addReviewModal"
@@ -171,6 +164,12 @@
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
                         <span>Add Review</span>
                       </a>
+                      <button
+                        class="btn btn-outline-dark flex-shrink-0"
+                        type="button"
+                      >
+                        <i class="far fa-heart"></i>
+                      </button>
                     </div>
                   </div>
                 </div>

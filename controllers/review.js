@@ -46,7 +46,7 @@ const addReview = async (req, res) => {
       comment: req.body.comment,
       item: item._id,
     });
-
+    
     res.redirect("/item/" + req.params.id);
   } catch (error) {
     res.status(400).json(error);

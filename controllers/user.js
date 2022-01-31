@@ -2,6 +2,7 @@ const { default: jwtDecode } = require("jwt-decode");
 const userService = require("../services/users");
 const categoryService = require("../services/categories");
 const itemTypeService = require("../services/itemType");
+const itemService = require("../services/items.js");
 let token, jwt_decode, currentUser;
 
 const getUsers = async (req, res) => {
@@ -45,6 +46,7 @@ const getDashboard = async (req, res) => {
     const test = await userService.getUser(currentUser.id);
     const categoriesData = await categoryService.getCategories(req, res);
     const typesData = await itemTypeService.getItemTypes(req, res);
+
     let categories = [];
     let types = [];
     categoriesData.forEach(function (item) {
@@ -55,7 +57,9 @@ const getDashboard = async (req, res) => {
     });
 
     if (userType == "Customer")
-      res.render("customerDashboard", { user: currentUser });
+      res.render("customerDashboard", {
+        user: currentUser,
+      });
     else if (userType == "Shop")
       res.render("shopDashboard", {
         user: currentUser,

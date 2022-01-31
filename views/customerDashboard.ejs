@@ -134,10 +134,45 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <!-- Header Contetnt -->
-            <div class="content-block">
-              <h1>Feeling Lucky</h1>
-              <p>Surprise yourself</p>
+            <!-- Content Row -->
+            <div class="row mx-1 my-4">
+              <div class="d-flex flex-wrap justify-content-between">
+            
+                <div class="card" style="margin: 20px; max-width: 250px">
+                  <img
+                    class="card-img-top"
+                    src="<%= randomItems.imageUrls[0] %>"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a href="/item/<%= randomItems.id %>"
+                        ><%= randomItems.name %></a
+                      >
+                    </h5>
+                    <p
+                      class="block card-text"
+                      style="
+                        display: block;
+                        text-overflow: ellipsis;
+                        word-wrap: break-word;
+                        overflow: hidden;
+                        max-height: 7.2em;
+                        line-height: 1.8em;
+                      "
+                    >
+                      <%= randomItems.shortDesc %>
+                    </p>
+                    <a
+                      href="/item/<%= randomItems.id %>"
+                      class="btn btn-primary"
+                      >See More</a
+                    >
+                  </div>
+                </div>
+                
+                
+              </div>
             </div>
           </div>
         </div>

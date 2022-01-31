@@ -48,6 +48,7 @@ const addItem = async (item) => {
     throw { error: "Error adding Item", details: error };
   }
 };
+
 /*
 const editItem = async (id, fieldsForEdit) => {
   try {

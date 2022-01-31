@@ -17,6 +17,16 @@ const getTag = async (id) => {
   }
 };
 
+const getTagByName = async (name) => {
+  try {
+    const tag = await Tag.findOne({ name: name });
+    if (!tag) throw "Tag does not exist!";
+    return tag;
+  } catch (error) {
+    throw { error: "Error while trying to fetch tag!", details: error };
+  }
+};
+
 const doesTagExist = async (name) => {
   try {
     return await Tag.findOne({ name: name });
@@ -74,6 +84,7 @@ const deleteTag = async (id) => {
 module.exports = {
   getTags,
   getTag,
+  getTagByName,
   doesTagExist,
   addTag,
   editTag,

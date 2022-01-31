@@ -75,3 +75,36 @@ a:visited {
 .rating > input:checked ~ label:hover ~ label {
   color: #ffed85;
 }
+.chip {
+  background-color: $blue;
+  color: $white;
+  border-radius: 1em;
+  display: inline-block;
+  font-size: 11px;
+  line-height: 1em;
+  padding: 0.5em 1em;
+  .remove {
+    padding-left: 0.5em;
+  }
+}
+
+.imageUpload {
+  height: 100%;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+input[type="file"]::file-selector-button {
+  border: none;
+  padding: 0.4em 0.75em;
+  border-radius: 0.2em;
+  background-color: $primary;
+  font-size: 1em;
+  color: $white;
+  transition: all ease-in 200ms;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background-color: $cyan;
+}

@@ -126,6 +126,53 @@
             <div class="content-block">
               <h1>Top Selections</h1>
               <p>See what's popular</p>
+                 <!-- Content Row -->
+            <div class="row mx-1 my-4">
+              <div class="d-flex flex-wrap justify-content-around">
+            <% for (var i = 0; i < bestItems.length; i++) { %>
+                <div class="card" style="margin: 20px; max-width: 200px">
+                  <img
+                    class="card-img-top"
+                    src="<%= bestItems[i].imageUrls[0] %>"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <h6 class="card-title">
+                      <a href="/item/<%= bestItems[i].id %>"
+                        ><%= bestItems[i].name %></a
+                      >
+                    </h6>
+                    <div class="d-flex">
+                          <span class="h5" style="margin: auto 0"
+                          ><%- Math.round((bestItems[i].avgRating + Number.EPSILON) *
+                          10) / 10 %></span
+                        >
+                          <i class="fas fa-star star"></i>
+                        </div>
+                    <p
+                      class="block card-text"
+                      style="
+                        display: block;
+                        text-overflow: ellipsis;
+                        word-wrap: break-word;
+                        overflow: hidden;
+                        max-height: 7.2em;
+                        line-height: 1.8em;
+                      "
+                    >
+                      <%= bestItems[i].shortDesc %>
+                    </p>
+                    <a
+                      href="/item/<%= bestItems[i].id %>"
+                      class="btn btn-primary"
+                      >See More</a
+                    >
+                  </div>
+                </div>
+                <% } %>
+                
+              </div>
+            </div>
             </div>
           </div>
         </div>
@@ -158,6 +205,47 @@
             <div class="content-block">
               <h1>Feeling Lucky</h1>
               <p>Surprise yourself</p>
+               <!-- Content Row -->
+            <div class="row mx-1 my-4">
+              <div class="d-flex flex-wrap justify-content-around">
+            <% for (var i = 0; i < randomItems.length; i++) { %>
+                <div class="card" style="margin: 20px; max-width: 200px">
+                  <img
+                    class="card-img-top"
+                    src="<%= randomItems[i].imageUrls[0] %>"
+                    alt="Card image cap"
+                  />
+                  <div class="card-body">
+                    <h6 class="card-title">
+                      <a href="/item/<%= randomItems[i].id %>"
+                        ><%= randomItems[i].name %></a
+                      >
+                    </h6>
+                    <h5></h5>
+                    <p
+                      class="block card-text"
+                      style="
+                        display: block;
+                        text-overflow: ellipsis;
+                        word-wrap: break-word;
+                        overflow: hidden;
+                        max-height: 7.2em;
+                        line-height: 1.8em;
+                      "
+                    >
+                      <%= randomItems[i].shortDesc %>
+                    </p>
+                    <a
+                      href="/item/<%= randomItems[i].id %>"
+                      class="btn btn-primary"
+                      >See More</a
+                    >
+                  </div>
+                </div>
+                <% } %>
+                
+              </div>
+            </div>
             </div>
           </div>
         </div>

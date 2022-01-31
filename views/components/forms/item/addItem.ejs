@@ -35,6 +35,7 @@
               id="name"
               name="name"
               placeholder="Enter Product Name"
+              onKeyPress="return preventSubmit()"
             />
           </div>
           <div class="form-group">
@@ -44,17 +45,18 @@
               id="brand"
               name="brand"
               placeholder="Enter Product Brand"
+              onKeyPress="return preventSubmit()"
             />
           </div>
           <div class="form-group">
-              <label for="type">Select Product Type</label>
-              <select class="form-control" id="type" name="type">
-                <% for (var i = 0; i < types.length; i++) { %>
-                <option label="<%= types[i].name%>">
-                  <%= JSON.stringify(types[i])%>
-                </option>
-                <% } %>
-              </select>
+            <label for="type">Select Product Type</label>
+            <select class="form-control" id="type" name="type">
+              <% for (var i = 0; i < types.length; i++) { %>
+              <option label="<%= types[i].name%>">
+                <%= JSON.stringify(types[i])%>
+              </option>
+              <% } %>
+            </select>
           </div>
           <div class="form-group">
             <textarea
@@ -66,7 +68,7 @@
             ></textarea>
           </div>
           <div class="form-group">
-            <label for="category">Example select</label>
+            <label for="category">Select Category</label>
             <select class="form-control" id="category" name="category">
               <% for (var i = 0; i < categories.length; i++) { %>
               <option label="<%= categories[i].name%>">
@@ -75,42 +77,60 @@
               <% } %>
             </select>
           </div>
+
           <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="tagInput"
+              name="tagInput"
+              placeholder="Enter Product Tags"
+              onKeyPress="return preventSubmit()"
+            />
             <input
               type="text"
               class="form-control"
               id="tags"
               name="tags"
               placeholder="Enter Product Tags"
+              onKeyPress="return preventSubmit()"
+              style="display: none"
             />
+            <ul
+              id="chips"
+              class="col-md-12 d-flex justify-content-evenly flex-wrap px-0 py-1"
+            ></ul>
           </div>
+
           <div class="form-group">
+            <label for="imageUrls">Upload Images</label>
             <input
               type="file"
               accept="image/*"
               id="imageUrls"
               name="imageUrls"
-              class="form-control"
+              class="form-control imageUpload"
               placeholder="Add Product Images"
               multiple
             />
           </div>
-          <div class="form-group">
+
+          <div class="form-group d-flex justify-content-between">
             <input
               type="number"
-              class="form-control"
-              id="stock"
-              name="stock"
-              placeholder="Enter Product Stock"
-            />
-          </div>
-          <div class="form-group">
-            <input
-              type="number"
-              class="form-control"
+              class="form-control mr-2"
               id="price"
               name="price"
               placeholder="Enter Product Price"
+              onKeyPress="return preventSubmit()"
+            />
+            <input
+              type="number"
+              class="form-control ml-2"
+              id="stock"
+              name="stock"
+              placeholder="Enter Product Stock"
+              onKeyPress="return preventSubmit()"
             />
           </div>
           <button class="w-100 btn btn-lg btn-primary" type="submit">
@@ -121,3 +141,53 @@
     </div>
   </div>
 </div>
+
+<script>
+  var txt = document.getElementById("tagInput");
+  var tags = document.getElementById("tags");
+  var list = document.getElementById("chips");
+  var items = [];
+  var chip = document.getElementById("chip");
+
+  txt.addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      let val = txt.value;
+      if (val !== "") {
+        if (items.indexOf(val) >= 0) {
+          alert("Tag name is a duplicate");
+        } else {
+          items.push(val);
+          render();
+          txt.value = "";
+          txt.focus();
+        }
+      } else {
+        alert("Please type a tag Name");
+      }
+    }
+  });
+
+  function render() {
+    list.innerHTML = "";
+    items.map((item, index) => {
+      list.innerHTML += `<li class="m-1 d-flex align-items-center chip"><span>${item}</span><a class="remove" href="javascript: remove(${index})"><i class="fas fa-times"></i></a></li>`;
+    });
+    tags.value = items;
+
+    console.log(tags.value);
+  }
+
+  function remove(i) {
+    items = items.filter((item) => items.indexOf(item) != i);
+    render();
+  }
+
+  function preventSubmit() {
+    return !(window.event && window.event.keyCode == 13);
+  }
+
+  window.onload = function () {
+    render();
+    txt.focus();
+  };
+</script>

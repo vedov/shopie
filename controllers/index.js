@@ -1,5 +1,50 @@
-const getLanding = (req, res) => {
-  res.render("landing");
+const itemService = require("../services/items");
+const reviewService = require("../services/reviews");
+const getLanding = async (req, res) => {
+  const randomItems = await getRandomItems(req, res);
+  const bestItems = await getBestItems(req, res);
+  res.render("landing", { randomItems: randomItems, bestItems: bestItems });
+};
+
+const getRandomItems = async () => {
+  try {
+    const items = await itemService.getItems();
+    const randomItems = [];
+    for (i = 0; i < 6; i++) {
+      randomItems.push(items[Math.floor(Math.random() * items.length)]);
+    }
+
+    return randomItems;
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
+const getBestItems = async (req, res) => {
+  try {
+    const items = await itemService.getItems();
+    for (product of items) {
+      const avgRating = await getAvgItemRating(product);
+      product.avgRating = avgRating;
+    }
+
+    return items.sort((a, b) => (a.avgRating > b.avgRating ? -1 : 1));
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
+const getAvgItemRating = async (item) => {
+  try {
+    const reviews = await reviewService.getItemReviews(item);
+    let avgRating = 0;
+    for (i = 0; i < reviews.length; i++) {
+      avgRating += reviews[i].rating;
+    }
+    return avgRating / reviews.length;
+  } catch (error) {
+    res.status(404).json(error);
+  }
 };
 
 /* exports.postRegister = async (req, res, next) => {
@@ -52,4 +97,6 @@ const getLanding = (req, res) => {
 }; */
 module.exports = {
   getLanding,
+  getBestItems,
+  getAvgItemRating,
 };
