@@ -50,6 +50,19 @@ const getCatalogue = async (req, res) => {
   }
 };
 
+const getWishList = async (req, res) => {
+  try {
+    const currentUser = await getCurrentUser(req, res);
+    const products = await itemService.getWishList(currentUser._id);
+
+    res.render("wishList", {
+      products: products,
+    });
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
 const getItemsByCategory = async (req, res) => {
   try {
     const category = await categoryService.getCategory(req.params.id);
@@ -194,4 +207,5 @@ module.exports = {
   getCurrentUser,
   getCatalogue,
   getItemsByCategory,
+  getWishList,
 };

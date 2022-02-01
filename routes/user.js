@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const userController = require("../controllers/user");
 const itemController = require("../controllers/item");
+const wishListController = require("../controllers/wishList");
 const authMiddleware = require("../middleware/auth");
 const parser = require("../middleware/cloudinary");
 /* const {
@@ -10,6 +11,7 @@ const parser = require("../middleware/cloudinary");
 } = require("../middleware/authValidators"); */
 
 router.get("/", userController.getDashboard);
+router.get("/wishList", wishListController.getWishList);
 router.post("/", parser.array("imageUrls"), itemController.addItem);
 router.get("/catalogue", itemController.getCatalogue);
 router.get("/orders", userController.getOrders);

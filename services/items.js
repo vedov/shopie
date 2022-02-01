@@ -18,6 +18,18 @@ const getCatalogue = async (shop) => {
   }
 };
 
+const getWishList = async (shop) => {
+  try {
+    return await Item.find({ shop: shop });
+  } catch (error) {
+    throw {
+      error: "Error while trying to get Catalogue!",
+      details: error,
+    };
+  }
+};
+
+
 const getItemsByCategory = async (category) => {
   try {
     return await Item.find({ category: category });
@@ -31,7 +43,7 @@ const getItemsByCategory = async (category) => {
 
 const getItemByName = async (name) => {
   try {
-    return await Item.find({ name: { $regex: name } });
+    return await Item.find({ name: { $regex: name, $options: "i" } });
   } catch (error) {
     throw {
       error: "Error while trying to get Item!",
