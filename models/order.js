@@ -21,15 +21,6 @@ const OrderSchema = new Schema({
     type: Number,
     required: true,
   },
-  orderStatus: {
-    type: Schema.Types.ObjectId,
-    ref: "OrderStatus",
-    required: true,
-  },
-  orderReview: {
-    type: Schema.Types.ObjectId,
-    ref: "Review",
-  },
 });
 
 OrderSchema.method("toJSON", function () {

@@ -3,7 +3,17 @@ const userService = require("../services/users");
 const categoryService = require("../services/categories");
 const itemTypeService = require("../services/itemType");
 const itemService = require("../services/items.js");
-let token, jwt_decode, currentUser;
+
+const getCurrentUser = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    const jwt_decode = await jwtDecode(token);
+    const currentUser = await userService.getUser(jwt_decode.user.id);
+    return currentUser;
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
 
 const getUsers = async (req, res) => {
   try {
@@ -37,12 +47,8 @@ const getUserByEmail = async (req, res) => {
 
 const getDashboard = async (req, res) => {
   try {
-    token = req.cookies.token;
-    jwt_decode = await jwtDecode(token);
-    currentUser = jwt_decode.user;
-    const userType = await userService.getUserTypeById(
-      jwt_decode.user.userType
-    );
+    const currentUser = await getCurrentUser(req, res);
+    const userType = await userService.getUserTypeById(currentUser.userType);
     const test = await userService.getUser(currentUser.id);
     const categoriesData = await categoryService.getCategories(req, res);
     const typesData = await itemTypeService.getItemTypes(req, res);
@@ -85,10 +91,14 @@ const getOrders = async (req, res) => {
 
 const getSettings = async (req, res) => {
   try {
-    //Ternarni operator i da renderuje dashboard u odnosu na tip usera
-    res.render("settings", {});
-    /* const user = await userService.getUser(req.params.id);
-    res.status(200).json(user); */
+    const currentUser = await getCurrentUser(req, res);
+
+    const items = await itemService.getCatalogue(currentUser._id);
+    console.log(currentUser);
+    res.render("settings", {
+      user: currentUser,
+      itemsCount: items.length,
+    });
   } catch (error) {
     res.status(404).json(error);
   }

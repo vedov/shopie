@@ -11,8 +11,8 @@ const getWishList = async (user) => {
 const addToWishList = async (user, item) => {
   try {
     const wishList = await WishList.findOne({ user: user });
-    const existing = wishList.items.includes(item._id);
-    if (wishList.length == 0) {
+    const existing = wishList && wishList.items.includes(item._id);
+    if (!wishList || wishList.length == 0) {
       const newWishList = new WishList({
         user: user._id,
         items: [item._id],

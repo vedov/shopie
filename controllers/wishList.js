@@ -2,7 +2,6 @@ const wishListService = require("../services/wishLists");
 const itemService = require("../services/items");
 const { default: jwtDecode } = require("jwt-decode");
 const userService = require("../services/users");
-const WishList = require("../models/wishList");
 
 const getCurrentUser = async (req, res) => {
   try {
@@ -18,13 +17,14 @@ const getWishList = async (req, res) => {
   try {
     const currentUser = await getCurrentUser(req, res);
     const products = await wishListService.getWishList(currentUser._id);
-    console.log(products.items);
+
     let wishList = [];
     for (item of products.items) {
       const temp = await itemService.getItem(item);
+      console.log(temp);
       wishList.push(temp);
     }
-    console.log(products.items);
+
     res.render("wishList", {
       products: wishList,
     });

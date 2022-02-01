@@ -103,9 +103,8 @@ const getItem = async (req, res) => {
     }
 
     const avgRating = await getAvgItemRating(req, res);
-    item.avgRating = avgRating;
-    console.log(item);
-    console.log(item.avgRating);
+    await itemService.setItemRating(item._id, avgRating);
+
     res.render("item", {
       item: item,
       shop: shop,
@@ -168,8 +167,6 @@ const addItem = async (req, res) => {
       tags: tags,
       imageUrls: imageUrls,
     });
-
-    console.log(savedItem);
 
     res.redirect("/user/catalogue");
   } catch (error) {

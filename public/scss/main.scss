@@ -56,7 +56,6 @@ a:visited {
   margin: 5px;
   font-size: 1.25em;
   font-family: FontAwesome;
-  display: inline-block;
   content: "\f005";
   float: right;
 }
@@ -107,4 +106,18 @@ input[type="file"]::file-selector-button {
 
 input[type="file"]::file-selector-button:hover {
   background-color: $cyan;
+}
+.profile-info {
+  margin-top: -100px;
+}
+.img-cover {
+  width: 100%;
+  max-width: 100%;
+  object-fit: contain;
+}
+
+.slide-icon {
+  color: $primary;
+  background-color: rebeccapurple;
+  padding: 1em;
 }

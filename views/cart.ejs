@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../views/components/head/head.ejs') -%>
+
+  <body id="page-top" data-server-scope="<%= products %>">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+      <%- include('../views/components/sidebar/shopSidebar.ejs') -%>
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+        <!-- Main Content -->
+        <div id="content">
+          <!-- Topbar -->
+
+          <%- include('../views/components/navbar/navbar.ejs') %>
+          <!-- End of Topbar -->
+
+          <!-- Begin Page Content -->
+          <div class="container-fluid">
+            <div class="row">
+        <div class="col-lg-12  mb-5">
+
+          <!-- Shopping cart table -->
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="p-2 px-3 text-uppercase">Product</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Price</div>
+                  </th>
+                  <th scope="col" class="border-0 bg-light">
+                    <div class="py-2 text-uppercase">Remove</div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% for (var i = 0; i < products.length; i++) { %>
+                  <div id='productsLength' style="display: none;"><%= products.length %></div>
+                <tr>
+                  <th scope="row" class="border-0">
+                    <div class="p-2">
+                      <img src="<%= products[i].imageUrls[0] %>" alt="" width="70" class="img-fluid rounded">
+                      <div class="ml-3 d-inline-block align-middle">
+                        <h5 class="mb-0" > <a href="/item/<%= products[i].id %>" class="text-dark d-inline-block align-middle" id="<%= i %>"><%= products[i].name %></a></h5> <div class="d-flex">
+                     <div class="d-flex">
+                        <span class="h6" style="margin: auto 0"
+                          ><%- Math.round((products[i].avgRating + Number.EPSILON) *
+                          10) / 10 %></span
+                        >
+                        <i class="fas fa-star star"></i>
+                        <span style="display: none;" id="item<%= i %>"><%= products[i].id %></span>
+                        <span style="display: none;" id="customer"><%= customer %></span>
+                      </div>
+                        </div>
+                      </div>
+                    </div>
+                  </th>
+                  <td class="border-0 align-middle"><strong>$<%= products[i].price %></strong></td>
+                  <td class="border-0 align-middle">
+                    <form action="/item/cart/remove/<%- products[i].id %>" method="POST">
+                        <button
+                          class="btn btn-outline-dark flex-shrink-0 heart"
+                          onclick="submit"
+                        >
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </form>
+                   </td>
+                </tr>
+                <% } %>
+   
+              </tbody>
+            </table>
+          </div>
+          <!-- End -->
+        </div>
+      </div>
+
+      <div class="row py-5">
+        <div class="col-lg-6">
+          <div class="bg-light  px-4 py-3 text-uppercase font-weight-bold">Coupon code</div>
+          <div class="p-4">
+            <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
+            
+              <form action="cart/coupon" method="POST">
+                <div class="input-group mb-4 border  p-2">
+                <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0" style="background: transparent;" name='coupon' id='coupon'>
+                <div class="input-group-append border-0">       
+                      <button id="button-addon3"  class="btn btn-primary px-4 " onclick="submit" ><i class="fa fa-gift mr-2"></i>Add Coupon</button>  
+                </div>
+                </div>
+            </form>
+            
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="bg-light  px-4 py-3 text-uppercase font-weight-bold">Order summary </div>
+          <div class="p-4">
+            <p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.</p>
+            <ul class="list-unstyled mb-4">
+              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Order Subtotal </strong><strong>$<%= price %></strong></li>
+              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Shipping and handling</strong><strong>$10</strong></li>
+              <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>
+                <h5 class="font-weight-bold">$<span id='totalprice'><%= price + 10 %></span></h5>
+              </li>
+            </ul>     
+              <form action="cart/placeorder" method="POST">
+                <input
+              type="text"
+              class="form-control"
+              id="itemsInput"
+              name="itemsInput"
+              style="display: none;"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="priceInput"
+              name="priceInput"
+              style="display: none;"
+            />
+            <input
+              type="text"
+              class="form-control"
+              id="customerInput"
+              name="customerInput"
+              style="display: none;"
+            />
+                 <button
+                  class="btn btn-primary py-2 btn-block"
+                  type="submit"
+                  >
+                  Place Order
+                  </button>
+              </form>
+          </div>
+        </div>
+      </div>
+      </div>
+
+    </div>
+          </div>
+          <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- End of Footer -->
+      </div>
+      <!-- End of Content Wrapper -->
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <%- include('../views/components/scrollToTop/scrollToTop.ejs') -%>
+    <!-- Logout Modal-->
+    <%- include('../views/components/logout/logout.ejs') -%>
+
+    <!-- Scripts-->
+    <script>
+var length = document.getElementById('productsLength').innerText;
+var price = document.getElementById('totalprice').innerText;
+var customer = document.getElementById('customer').innerText;
+var itemsInput = document.getElementById('itemsInput');
+var priceInput = document.getElementById('priceInput');
+var customerInput = document.getElementById('customerInput');
+var products = [];
+for(var i=0;i<length;i++){
+  products.push(document.getElementById('item'+i).innerText);
+}
+itemsInput.value = products;
+priceInput.value = price;
+customerInput.value = customer;
+  
+</script>
+  </body>
+</html>

@@ -26,44 +26,70 @@
               <h1 class="h3 mb-0 text-gray-800">My Wish List</h1>
             </div>
 
-            <!-- Content Row -->
-            <div class="row mx-1 my-4">
-              <div class="d-flex flex-wrap justify-content-between">
-                <% for (var i = 0; i < products.length; i++) { %>
-                <div class="card" style="margin: 20px; max-width: 250px">
-                  <img
-                    class="card-img-top"
-                    src="<%= products[i].imageUrls[0] %>"
-                    alt="Card image cap"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="/item/<%= products[i].id %>"
-                        ><%= products[i].name %></a
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="p-2 px-3 text-uppercase">Product</div>
+                    </th>
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="py-2 text-uppercase">Price</div>
+                    </th>
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="py-2 text-uppercase">Remove</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for (var i = 0; i < products.length; i++) { %>
+                  <tr>
+                    <th scope="row" class="border-0">
+                      <div class="p-2">
+                        <img
+                          src="<%= products[i].imageUrls[0] %>"
+                          alt=""
+                          width="70"
+                          class="img-fluid rounded"
+                        />
+                        <div class="ml-3 d-inline-block align-middle">
+                          <h5 class="mb-0">
+                            <a
+                              href="/item/<%= products[i].id %>"
+                              class="text-dark d-inline-block align-middle"
+                              ><%= products[i].name %></a
+                            >
+                          </h5>
+                          <div class="d-flex">
+                            <span class="h6" style="margin: auto 0"
+                              ><%- Math.round((products[i].avgRating +
+                              Number.EPSILON) * 10) / 10 %></span
+                            >
+                            <i class="fas fa-star star"></i>
+                          </div>
+                        </div>
+                      </div>
+                    </th>
+                    <td class="border-0 align-middle">
+                      <strong>$<%= products[i].price %></strong>
+                    </td>
+                    <td class="border-0 align-middle">
+                      <form
+                        action="/item/cart/remove/<%- products[i].id %>"
+                        method="POST"
                       >
-                    </h5>
-                    <p
-                      class="block card-text"
-                      style="
-                        display: block;
-                        text-overflow: ellipsis;
-                        word-wrap: break-word;
-                        overflow: hidden;
-                        max-height: 7.2em;
-                        line-height: 1.8em;
-                      "
-                    >
-                      <%= products[i].shortDesc %>
-                    </p>
-                    <a
-                      href="/item/<%= products[i].id %>"
-                      class="btn btn-primary"
-                      >See More</a
-                    >
-                  </div>
-                </div>
-                <% } %>
-              </div>
+                        <button
+                          class="btn btn-outline-dark flex-shrink-0 heart"
+                          onclick="submit"
+                        >
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
             </div>
           </div>
           <!-- /.container-fluid -->
@@ -81,8 +107,5 @@
     <%- include('../views/components/scrollToTop/scrollToTop.ejs') -%>
     <!-- Logout Modal-->
     <%- include('../views/components/logout/logout.ejs') -%>
-
-    <!-- Scripts-->
-    <%- include('../views/components/scripts/scripts.ejs') -%>
   </body>
 </html>

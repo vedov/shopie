@@ -18,18 +18,6 @@ const getCatalogue = async (shop) => {
   }
 };
 
-const getWishList = async (shop) => {
-  try {
-    return await Item.find({ shop: shop });
-  } catch (error) {
-    throw {
-      error: "Error while trying to get Catalogue!",
-      details: error,
-    };
-  }
-};
-
-
 const getItemsByCategory = async (category) => {
   try {
     return await Item.find({ category: category });
@@ -56,6 +44,18 @@ const getItem = async (id) => {
   try {
     const item = await Item.findById(id);
     if (!item) throw "Item does not exist!";
+    return item;
+  } catch (error) {
+    throw { error: "Error while trying to fetch Item!", details: error };
+  }
+};
+
+const setItemRating = async (id, rating) => {
+  try {
+    const item = await Item.findById(id);
+    if (!item) throw "Item does not exist!";
+    item.avgRating = rating;
+    item.save();
     return item;
   } catch (error) {
     throw { error: "Error while trying to fetch Item!", details: error };
@@ -125,4 +125,5 @@ module.exports = {
   doesItemExist,
   getCatalogue,
   getItemsByCategory,
+  setItemRating,
 };
