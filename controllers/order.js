@@ -1,6 +1,7 @@
 const orderService = require("../services/orders");
 const userService = require("../services/users");
 const itemService = require("../services/items");
+const cartService = require("../services/carts");
 const {
   sendMailToCustomer,
   sendOrderMailToCustomer,
@@ -20,10 +21,17 @@ const getCurrentUser = async (req, res) => {
 const getOrders = async (req, res) => {
   try {
     const currentUser = await getCurrentUser(req, res);
-    const orders = await orderService.getOrders(currentUser);
+    const userType = await userService.getUserTypeById(currentUser.userType);
+    let orders;
+    if (userType == "Shop") {
+      orders = await orderService.getShopOrders(currentUser);
+    } else if (userType == "Customer") {
+      orders = await orderService.getCustomerOrders(currentUser);
+    }
     res.render("orders", {
       orders: orders,
-      shop: currentUser,
+      user: currentUser,
+      userType: userType,
     });
   } catch (error) {
     res.status(404).json(error);
@@ -47,17 +55,19 @@ const addOrder = async (req, res) => {
     let tempItems = [];
     let items = [];
     tempItems = itemData.split(",");
-    console.log(customer.email);
     for (item of tempItems) {
       const temp = await itemService.getItem(item);
       items.push(temp);
     }
     sendOrderMailToCustomer(customer.email);
+
     const savedOrder = await orderService.addOrder({
       customer: customer,
       orderItems: items,
       price: price,
     });
+    const cart = await cartService.clearCart(customer._id);
+    res.redirect("back");
   } catch (error) {
     res.status(400).json(error);
   }
@@ -67,13 +77,31 @@ const setOrderStatus = async (req, res) => {
   try {
     const order = await orderService.getOrder(req.params.id);
     const customer = await userService.getUser(order.customer);
-    let status = "Pending";
+    let shops = [];
 
-    if (req.body.accepted) status = req.body.accepted;
+    let status = "Pending";
+    for (i = 0; i < order.orderItems.length; i++) {
+      const item = await itemService.getItem(order.orderItems[i]);
+      shops.push(item.shop);
+    }
+    if (req.body.accepted) {
+      status = req.body.accepted;
+      sendMailToCustomer(customer.email);
+    }
     if (req.body.refused) status = req.body.refused;
+    if (req.body.received) {
+      status = req.body.received;
+      for (i = 0; i < shops.length; i++) {
+        const shop = await userService.getUser(shops[i]);
+        const item = await itemService.getItem(order.orderItems[i]);
+        let revenue = shop.revenue;
+        revenue += item.price;
+        await userService.addToUserRevenue(shop._id, revenue);
+      }
+    }
+    if (req.body.cancelled) status = req.body.cancelled;
     const result = status.charAt(0).toUpperCase() + status.slice(1);
     await orderService.setOrderStatus(order, result);
-    if (req.body.accepted) sendMailToCustomer(customer.email);
 
     res.redirect("back");
   } catch (error) {

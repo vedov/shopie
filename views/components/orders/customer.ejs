@@ -1,0 +1,112 @@
+<% if(userType.toString() == 'Customer'){ %>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" class="border-0 bg-light">
+          <div class="p-2 pr-3 text-uppercase">Order ID</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Order Date</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="p-2 px-3 text-uppercase">Product</div>
+        </th>
+
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Price</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="py-2 text-uppercase">Status</div>
+        </th>
+        <th scope="col" class="border-0 bg-light">
+          <div class="p-2 px-3 text-uppercase">Options</div>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (var i = 0; i < orders.length; i++) { %>
+      <tr>
+        <td class="border-0 align-top">
+          <strong><%= orders[i]._id %></strong>
+        </td>
+
+        <td class="border-0 align-top">
+          <strong><%= orders[i].orderDate.toLocaleString('en-GB') %></strong>
+        </td>
+        <td scope="row " class="border-0">
+          <div class="p-2">
+            <% for(j=0;j<orders[i].orderItems.length;j++) { var item =
+            orders[i].orderItems[j]; %>
+            <div class="d-flex flex-column">
+              <div class="d-flex" class="align-items-start">
+                <img
+                  alt=""
+                  width="70"
+                  height="70"
+                  class="img-fluid rounded mr-4"
+                  src="<%= item.imageUrls[0] %>"
+                />
+                <a href="/item/<%= item._id %>" class="text-truncate">
+                  <%= item.name %>
+                </a>
+              </div>
+            </div>
+            <% } %>
+          </div>
+        </td>
+
+        <td class="border-0 align-top">
+          <strong>$<%= orders[i].price %></strong>
+        </td>
+        <td class="border-0 align-top">
+          <strong><%= orders[i].orderStatus %></strong>
+        </td>
+        <td class="border-0 align-top d-flex flex-row">
+                      <% if(orders[i].orderStatus == 'Pending') { %>
+                      <form
+                        action="/user/orders/setorderstatus/<%- orders[i]._id %>"
+                        method="POST"
+                      >
+                        <button
+                          class="btn btn-danger mx-2"
+                          onclick="submit"
+                          id='cancelled'
+                          name='cancelled'
+                          value="cancelled"
+                        >
+                          Cancel Order<i class="fas fa-times ml-2"></i>
+                        </button>
+                          
+                        </input>
+                      </form>
+                      <% } %>
+                      <% if(orders[i].orderStatus == 'Accepted') { %>
+                      <form
+                        action="/user/orders/setorderstatus/<%- orders[i]._id %>"
+                        method="POST"
+                      >
+                        <button
+                          class="btn btn-success mx-2"
+                          onclick="submit"
+                          id='received'
+                          name='received'
+                          value="received"
+                        >
+                          Received Order<i class="fas fa-check mx-2"></i>
+                        </button>
+                          
+                        </input>
+                      </form>
+                      <% } %>
+                      <% if(orders[i].orderStatus == 'Refused') { %>
+                      <span class="badge bg-danger">Order Refused</span>
+                      <% } %>
+                 
+                    </td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+</div>
+<% }%>

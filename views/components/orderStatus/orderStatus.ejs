@@ -1,0 +1,77 @@
+<% if(userType == 'Shop') {%>
+<% if(orders[i].orderStatus == 'Pending' || orders[i].orderStatus == 'Refused') { %>
+                      <form
+                        action="/user/orders/setorderstatus/<%- orders[i]._id %>"
+                        method="POST"
+                      >
+                        <button
+                          class="btn btn-primary mx-2"
+                          onclick="submit"
+                          id='accepted'
+                          name='accepted'
+                          value="accepted"
+                        >
+                          Accept Order<i class="fas fa-check ml-2"></i>
+                        </button>
+                          
+                        </input>
+                      </form>
+                      <% } %>
+                      <% if(orders[i].orderStatus == 'Pending' || orders[i].orderStatus == 'Accepted') { %>
+                      <form
+                        action="/user/orders/setorderstatus/<%- orders[i]._id %>"
+                        method="POST"
+                      >
+                        <button
+                          class="btn btn-danger mx-2"
+                          onclick="submit"
+                          id='refused'
+                          name='refused'
+                          value="refused"
+                        >
+                          Refuse Order<i class="fas fa-times mx-2"></i>
+                        </button>
+                          
+                        </input>
+                      </form><% } }%>
+
+<% if(userType == 'Customer') {%>
+<% if(orders[i].orderStatus == 'Pending') { %>
+                      <form
+                        action="/user/orders/setorderstatus/<%- orders[i]._id %>"
+                        method="POST"
+                      >
+                        <button
+                          class="btn btn-danger mx-2"
+                          onclick="submit"
+                          id='cancelled'
+                          name='cancelled'
+                          value="cancelled"
+                        >
+                          Cancel Order<i class="fas fa-times ml-2"></i>
+                        </button>
+                          
+                        </input>
+                      </form>
+                      <% } %>
+                      <% if(orders[i].orderStatus == 'Accepted') { %>
+                      <form
+                        action="/user/orders/setorderstatus/<%- orders[i]._id %>"
+                        method="POST"
+                      >
+                        <button
+                          class="btn btn-green mx-2"
+                          onclick="submit"
+                          id='received'
+                          name='received'
+                          value="received"
+                        >
+                          Received Order<i class="fas fa-times mx-2"></i>
+                        </button>
+                          
+                        </input>
+                      </form><% } %>
+                      <% if(orders[i].orderStatus == 'Refused') { %> <strong
+                        >
+                         Order Refused<i class="fas fa-times mx-2"></i>
+                        </strong><% }}%>

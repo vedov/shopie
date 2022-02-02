@@ -67,13 +67,20 @@ const getDashboard = async (req, res) => {
       res.render("customerDashboard", {
         user: currentUser,
       });
-    else if (userType == "Shop")
+    else if (userType == "Shop") {
+      const items = await itemService.getCatalogue(currentUser._id);
+      const completed = await orderService.getCompletedOrders(currentUser);
+      const orders = await orderService.getShopOrders(currentUser);
+
       res.render("shopDashboard", {
         user: currentUser,
         categories: categories,
         types: types,
+        nrItems: items.length,
+        nrCompleted: completed.length,
+        nrOrders: orders.length,
       });
-    else res.render("adminDashboard", { user: currentUser });
+    } else res.render("adminDashboard", { user: currentUser });
   } catch (error) {
     res.status(404).json(error);
   }
@@ -83,9 +90,17 @@ const getSettings = async (req, res) => {
   try {
     const currentUser = await getCurrentUser(req, res);
 
+    const userType = await userService.getUserTypeById(currentUser.userType);
+
+    let orders;
+    if (userType == "Shop") {
+      orders = await orderService.getShopOrders(currentUser);
+    }
+    if (userType == "Customer") {
+      orders = await orderService.getCustomerOrders(currentUser);
+    }
     const items = await itemService.getCatalogue(currentUser._id);
-    const orders = await orderService.getOrders(currentUser);
-    const accepted = await orderService.getAcceptedOrders(currentUser);
+    const accepted = await orderService.getCompletedOrders(currentUser);
     res.render("settings", {
       user: currentUser,
       itemsCount: items.length,

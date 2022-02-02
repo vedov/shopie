@@ -47,6 +47,17 @@ const removeFromCart = async (user, item) => {
   }
 };
 
+const clearCart = async (user) => {
+  try {
+    const cart = await Cart.findOne({ user: user });
+    const clearedCart = await Cart.findByIdAndDelete(cart._id);
+    if (!clearedCart) throw "Cart does not exist!";
+    return clearedCart;
+  } catch (error) {
+    throw { error: "Error while trying to clear Cart!", details: error };
+  }
+};
+
 const addCoupon = async (user, discount) => {
   try {
     const cart = await Cart.findOne({ user: user });
@@ -61,5 +72,6 @@ module.exports = {
   getCart,
   addToCart,
   removeFromCart,
+  clearCart,
   addCoupon,
 };

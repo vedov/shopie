@@ -1,39 +1,59 @@
 const Order = require("../models/order");
-const getOrders = async (user) => {
+const getShopOrders = async (user) => {
   try {
     const orders = await Order.find()
+      .sort({ orderDate: -1 })
       .populate("orderItems", "-__v")
       .populate("customer", "-__v");
 
-    let userOrders = [];
+    let shopOrders = [];
     for (order of orders) {
       for (item of order.orderItems) {
         if (user._id.toString() == item.shop.toString()) {
-          userOrders.push(order);
+          shopOrders.push(order);
         }
       }
     }
-    return userOrders;
+    return shopOrders;
   } catch (error) {
     throw { error: "Error while trying to fetch orders!", details: error };
   }
 };
 
-const getAcceptedOrders = async (user) => {
+const getCustomerOrders = async (user) => {
+  try {
+    const orders = await Order.find()
+      .sort({ orderDate: -1 })
+      .populate("orderItems", "-__v")
+      .populate("customer", "-__v");
+    let customerOrders = [];
+
+    for (order of orders) {
+      if (user._id.toString() == order.customer._id.toString()) {
+        customerOrders.push(order);
+      }
+    }
+    return customerOrders;
+  } catch (error) {
+    throw { error: "Error while trying to fetch orders!", details: error };
+  }
+};
+
+const getCompletedOrders = async (user) => {
   try {
     const orders = await Order.find()
       .populate("orderItems", "-__v")
       .populate("customer", "-__v");
 
-    let acceptedOrders = [];
+    let completedOrders = [];
     for (order of orders) {
       for (item of order.orderItems) {
         if (user._id.toString() == item.shop.toString()) {
-          if (order.orderStatus == "Accepted") acceptedOrders.push(order);
+          if (order.orderStatus == "Received") completedOrders.push(order);
         }
       }
     }
-    return acceptedOrders;
+    return completedOrders;
   } catch (error) {
     throw { error: "Error while trying to fetch orders!", details: error };
   }
@@ -52,7 +72,6 @@ const getOrder = async (id) => {
 const setOrderStatus = async (id, status) => {
   try {
     const order = await Order.findById(id);
-    console.log(status);
     order.orderStatus = status;
     order.save();
   } catch (error) {
@@ -71,9 +90,10 @@ const addOrder = async (order) => {
 };
 
 module.exports = {
-  getOrders,
+  getShopOrders,
+  getCustomerOrders,
   getOrder,
   addOrder,
   setOrderStatus,
-  getAcceptedOrders,
+  getCompletedOrders,
 };

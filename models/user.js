@@ -40,6 +40,14 @@ const UserSchema = new Schema({
     type: String,
   },
   interests: [{ type: Schema.Types.ObjectId, ref: "Interest" }],
+  active: {
+    type: Boolean,
+    default: true,
+  },
+  revenue: {
+    type: Number,
+    default: 0,
+  },
 });
 
 // code in the UserSchema.pre() is called pre-hook. Before user info is saved in db, this function will be called

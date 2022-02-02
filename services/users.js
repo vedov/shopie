@@ -118,6 +118,12 @@ const deleteUser = async (id) => {
   }
 };
 
+const addToUserRevenue = async (id, revenue) => {
+  const user = await User.findById(id);
+  user.revenue = revenue;
+  user.save();
+};
+
 module.exports = {
   getUsers,
   getUser,
@@ -129,4 +135,5 @@ module.exports = {
   doesUserExist,
   getUserType,
   getUserTypeById,
+  addToUserRevenue,
 };
