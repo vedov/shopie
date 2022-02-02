@@ -127,10 +127,12 @@ const getAvgItemRating = async (req, res) => {
     for (i = 0; i < reviews.length; i++) {
       avgRating += reviews[i].rating;
     }
-    return avgRating / reviews.length;
+    if (reviews.length != 0) return avgRating / reviews.length;
+    else return 0;
   } catch (error) {
     res.status(404).json(error);
   }
+  return 0;
 };
 
 const addItem = async (req, res) => {

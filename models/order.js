@@ -21,6 +21,10 @@ const OrderSchema = new Schema({
     type: Number,
     required: true,
   },
+  orderStatus: {
+    type: String,
+    default: "Pending",
+  },
 });
 
 OrderSchema.method("toJSON", function () {

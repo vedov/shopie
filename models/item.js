@@ -52,6 +52,7 @@ const ItemSchema = new Schema({
   },
   avgRating: {
     type: Number,
+    default: 0,
   },
   review: [
     {

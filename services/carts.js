@@ -11,6 +11,7 @@ const getCart = async (user) => {
 const addToCart = async (user, item) => {
   try {
     const cart = await Cart.findOne({ user: user });
+
     if (!cart || cart.length == 0) {
       const newCart = new Cart({
         user: user._id,

@@ -15,9 +15,8 @@ const getCurrentUser = async (req, res) => {
 
 const getOrders = async (req, res) => {
   try {
-    const orders = await orderService.getOrders();
     const currentUser = await getCurrentUser(req, res);
-
+    const orders = await orderService.getOrders(currentUser);
     res.render("orders", {
       orders: orders,
       shop: currentUser,
@@ -60,8 +59,23 @@ const addOrder = async (req, res) => {
   }
 };
 
+const setOrderStatus = async (req, res) => {
+  try {
+    const order = await orderService.getOrder(req.params.id);
+    let status = "Pending";
+    if (req.body.accepted) status = req.body.accepted;
+    if (req.body.refused) status = req.body.refused;
+    const result = status.charAt(0).toUpperCase() + status.slice(1);
+    await orderService.setOrderStatus(order, result);
+    res.redirect("back");
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
 module.exports = {
   getOrders,
   getOrder,
   addOrder,
+  setOrderStatus,
 };

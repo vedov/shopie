@@ -19,6 +19,7 @@ router.get("/cart", cartController.getCart);
 router.post("/cart/coupon", cartController.addCoupon);
 router.post("/cart/placeorder", orderController.addOrder);
 router.get("/orders", orderController.getOrders);
+router.post("/orders/setorderstatus/:id", orderController.setOrderStatus);
 router.get("/settings", userController.getSettings);
 router.get("/users", userController.getUsers);
 router.get("/users/:id", userController.getUser);

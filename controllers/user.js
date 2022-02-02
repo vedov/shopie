@@ -84,10 +84,13 @@ const getSettings = async (req, res) => {
     const currentUser = await getCurrentUser(req, res);
 
     const items = await itemService.getCatalogue(currentUser._id);
-    console.log(currentUser);
+    const orders = await orderService.getOrders(currentUser);
+    const accepted = await orderService.getAcceptedOrders(currentUser);
     res.render("settings", {
       user: currentUser,
       itemsCount: items.length,
+      ordersCount: orders.length,
+      acceptedCount: accepted.length,
     });
   } catch (error) {
     res.status(404).json(error);
