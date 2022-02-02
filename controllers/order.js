@@ -1,6 +1,7 @@
 const orderService = require("../services/orders");
 const userService = require("../services/users");
 const itemService = require("../services/items");
+const { sendMailToCustomer } = require("../middleware/nodemailer");
 const { default: jwtDecode } = require("jwt-decode");
 const getCurrentUser = async (req, res) => {
   try {
@@ -62,11 +63,15 @@ const addOrder = async (req, res) => {
 const setOrderStatus = async (req, res) => {
   try {
     const order = await orderService.getOrder(req.params.id);
+    const customer = await userService.getUser(order.customer);
     let status = "Pending";
+
     if (req.body.accepted) status = req.body.accepted;
     if (req.body.refused) status = req.body.refused;
     const result = status.charAt(0).toUpperCase() + status.slice(1);
     await orderService.setOrderStatus(order, result);
+    if (req.body.accepted) sendMailToCustomer(customer.email);
+
     res.redirect("back");
   } catch (error) {
     res.status(404).json(error);
