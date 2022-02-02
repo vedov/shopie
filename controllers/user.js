@@ -3,6 +3,7 @@ const userService = require("../services/users");
 const categoryService = require("../services/categories");
 const itemTypeService = require("../services/itemType");
 const itemService = require("../services/items.js");
+const orderService = require("../services/orders");
 
 const getCurrentUser = async (req, res) => {
   try {
@@ -73,17 +74,6 @@ const getDashboard = async (req, res) => {
         types: types,
       });
     else res.render("adminDashboard", { user: currentUser });
-  } catch (error) {
-    res.status(404).json(error);
-  }
-};
-
-const getOrders = async (req, res) => {
-  try {
-    //Ternarni operator i da renderuje dashboard u odnosu na tip usera
-    res.render("orders", {});
-    /* const user = await userService.getUser(req.params.id);
-    res.status(200).json(user); */
   } catch (error) {
     res.status(404).json(error);
   }
@@ -163,7 +153,6 @@ module.exports = {
   deleteUser,
   getUserByEmail,
   getDashboard,
-  getOrders,
   getSettings,
   addUserInterest,
 };

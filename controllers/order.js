@@ -1,12 +1,26 @@
 const orderService = require("../services/orders");
 const userService = require("../services/users");
 const itemService = require("../services/items");
+const { default: jwtDecode } = require("jwt-decode");
+const getCurrentUser = async (req, res) => {
+  try {
+    const token = req.cookies.token;
+    const jwt_decode = await jwtDecode(token);
+    const currentUser = await userService.getUser(jwt_decode.user.id);
+    return currentUser;
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
 const getOrders = async (req, res) => {
   try {
     const orders = await orderService.getOrders();
+    const currentUser = await getCurrentUser(req, res);
 
     res.render("orders", {
       orders: orders,
+      shop: currentUser,
     });
   } catch (error) {
     res.status(404).json(error);
@@ -15,8 +29,8 @@ const getOrders = async (req, res) => {
 
 const getOrder = async (req, res) => {
   try {
-    const tag = await orderService.getOrder(req.params.id);
-    res.status(200).json(tag);
+    const order = await orderService.getOrder(req.params.id);
+    res.status(200).json(order);
   } catch (error) {
     res.status(404).json(error);
   }

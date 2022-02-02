@@ -1,7 +1,9 @@
 const Order = require("../models/order");
 const getOrders = async () => {
   try {
-    return await Order.find();
+    return await Order.find()
+      .populate("orderItems", "-__v")
+      .populate("customer", "-__v");
   } catch (error) {
     throw { error: "Error while trying to fetch orders!", details: error };
   }

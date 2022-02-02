@@ -23,54 +23,94 @@
             <div
               class="d-sm-flex align-items-center justify-content-between mb-4"
             >
-              <h1 class="h3 mb-0 text-gray-800">My Wish List</h1>
+              <h1 class="h3 mb-0 text-gray-800">Orders</h1>
             </div>
 
-            <!-- Content Row -->
-            <div class="row mx-1 my-4">
-              <div class="d-flex flex-wrap justify-content-start">
-                <% for (var i = 0; i < products.length; i++) { %>
-                <div class="card" style="margin: 20px; max-width: 250px">
-                  <img
-                    class="card-img-top"
-                    src="<%= products[i].imageUrls[0] %>"
-                    alt="Card image cap"
-                  />
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <a href="/item/<%= products[i].id %>"
-                        ><%= products[i].name %></a
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="p-2 pr-3 text-uppercase">Order ID</div>
+                    </th>
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="py-2 text-uppercase">Order Date</div>
+                    </th>
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="py-2 text-uppercase">Customer</div>
+                    </th>
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="p-2 px-3 text-uppercase">Product</div>
+                    </th>
+
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="py-2 text-uppercase">Price</div>
+                    </th>
+                    <th scope="col" class="border-0 bg-light">
+                      <div class="py-2 text-uppercase">Status</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% for (var i = 0; i < orders.length; i++) { %>
+                  <tr>
+                    <td class="border-0 align-top">
+                      <strong><%= orders[i]._id %></strong>
+                    </td>
+
+                    <td class="border-0 align-top">
+                      <strong
+                        ><%= orders[i].orderDate.toLocaleString('en-GB')
+                        %></strong
                       >
-                    </h5>
-                    <p
-                      class="block card-text"
-                      style="
-                        display: block;
-                        text-overflow: ellipsis;
-                        word-wrap: break-word;
-                        overflow: hidden;
-                        max-height: 7.2em;
-                        line-height: 1.8em;
-                      "
-                    >
-                      <%= products[i].shortDesc %>
-                    </p>
-                    <a
-                      href="/item/<%= products[i].id %>"
-                      class="btn btn-primary"
-                      >See More</a
-                    >
-                  </div>
-                </div>
-                <% } %>
-              </div>
+                    </td>
+                    <td class="border-0 align-top">
+                      <strong
+                        ><a href="/user/<%= orders[i]._id %>"
+                          ><%= orders[i].customer.username %></a
+                        ></strong
+                      >
+                    </td>
+                    <th scope="row " class="border-0 col-md-6">
+                      <div class="p-2">
+                        <% for(j=0;j<orders[i].orderItems.length;j++) { var item
+                        = orders[i].orderItems[j]; if(shop._id.toString() ==
+                        item.shop.toString()) { %>
+                        <div class="d-flex flex-column">
+                          <div class="d-flex py-4" class="align-items-start">
+                            <img
+                              alt=""
+                              width="70"
+                              height="70"
+                              class="img-fluid rounded mr-4"
+                              src="<%= item.imageUrls[0] %>"
+                            />
+                            <a
+                              href="/item/<%= item._id %>"
+                              class="text-truncate"
+                            >
+                              <%= item.name %>
+                            </a>
+                          </div>
+                        </div>
+                        <% } }%>
+                      </div>
+                    </th>
+
+                    <td class="border-0 align-top">
+                      <strong>$<%= orders[i].price %></strong>
+                    </td>
+                    <td class="border-0 align-top"></td>
+                  </tr>
+                  <% } %>
+                </tbody>
+              </table>
             </div>
           </div>
           <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
-        <!-- Footer -->
-        <%- include('../views/components/footer/footer.ejs') -%>
+
         <!-- End of Footer -->
       </div>
       <!-- End of Content Wrapper -->
@@ -81,8 +121,5 @@
     <%- include('../views/components/scrollToTop/scrollToTop.ejs') -%>
     <!-- Logout Modal-->
     <%- include('../views/components/logout/logout.ejs') -%>
-
-    <!-- Scripts-->
-    <%- include('../views/components/scripts/scripts.ejs') -%>
   </body>
 </html>
