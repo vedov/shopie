@@ -1,7 +1,10 @@
 const orderService = require("../services/orders");
 const userService = require("../services/users");
 const itemService = require("../services/items");
-const { sendMailToCustomer } = require("../middleware/nodemailer");
+const {
+  sendMailToCustomer,
+  sendOrderMailToCustomer,
+} = require("../middleware/nodemailer");
 const { default: jwtDecode } = require("jwt-decode");
 const getCurrentUser = async (req, res) => {
   try {
@@ -44,12 +47,12 @@ const addOrder = async (req, res) => {
     let tempItems = [];
     let items = [];
     tempItems = itemData.split(",");
-
+    console.log(customer.email);
     for (item of tempItems) {
       const temp = await itemService.getItem(item);
       items.push(temp);
     }
-
+    sendOrderMailToCustomer(customer.email);
     const savedOrder = await orderService.addOrder({
       customer: customer,
       orderItems: items,

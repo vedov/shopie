@@ -24,7 +24,24 @@ const sendMailToCustomer = async (email) => {
     console.log(err.message);
   }
 };
+const sendOrderMailToCustomer = async (email) => {
+  try {
+    let mailStatus = await transporter.sendMail({
+      from: '"No reply @ Shopie" <shopieshop9@gmail.com>',
+      to: email,
+      subject: "Order Received",
+      text: "Your Order Was Received",
+      html: "<p>Your order was received, the shop will proccess your order shoryly.</p>",
+    });
+
+    console.log(`Message sent: ${mailStatus.messageId}`);
+    return `Message sent: ${mailStatus.messageId}`;
+  } catch (err) {
+    console.log(err.message);
+  }
+};
 
 module.exports = {
   sendMailToCustomer,
+  sendOrderMailToCustomer,
 };
