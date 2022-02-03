@@ -18,6 +18,17 @@ const getCatalogue = async (shop) => {
   }
 };
 
+const getCatalogueByCategory = async (shop, category) => {
+  try {
+    return await Item.find({ shop: shop, category: category });
+  } catch (error) {
+    throw {
+      error: "Error while trying to get Catalogue!",
+      details: error,
+    };
+  }
+};
+
 const getItemsByCategory = async (category) => {
   try {
     return await Item.find({ category: category });
@@ -124,6 +135,7 @@ module.exports = {
   addItem,
   doesItemExist,
   getCatalogue,
+  getCatalogueByCategory,
   getItemsByCategory,
   setItemRating,
 };

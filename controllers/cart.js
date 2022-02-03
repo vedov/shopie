@@ -27,6 +27,7 @@ const getCart = async (req, res) => {
       customer: currentUser._id,
       products: cartProducts,
       price: cart.price,
+      coupon: "",
     });
   } catch (error) {
     res.status(404).json(error);
@@ -38,7 +39,6 @@ const addToCart = async (req, res) => {
     const currentUser = await getCurrentUser(req, res);
     const item = await itemService.getItem(req.params.id);
     await cartService.addToCart(currentUser._id, item);
-    res.redirect("/user/cart");
   } catch (error) {
     res.status(404).json(error);
   }
@@ -86,6 +86,7 @@ const addCoupon = async (req, res) => {
       customer: currentUser._id,
       products: cartProducts,
       price: newPrice,
+      coupon: "readonly",
     });
   } catch (error) {
     res.status(404).json(error);

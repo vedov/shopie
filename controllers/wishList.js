@@ -38,7 +38,17 @@ const addToWishList = async (req, res) => {
     const currentUser = await getCurrentUser(req, res);
     const item = await itemService.getItem(req.params.id);
     await wishListService.addToWishList(currentUser._id, item);
-    res.redirect("/user/wishList");
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
+const removeFromWishList = async (req, res) => {
+  try {
+    const currentUser = await getCurrentUser(req, res);
+    const item = await itemService.getItem(req.params.id);
+    await wishListService.removeFromWishList(currentUser._id, item);
+    res.redirect("back");
   } catch (error) {
     res.status(404).json(error);
   }
@@ -47,4 +57,5 @@ const addToWishList = async (req, res) => {
 module.exports = {
   getWishList,
   addToWishList,
+  removeFromWishList,
 };

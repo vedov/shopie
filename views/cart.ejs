@@ -88,8 +88,8 @@
             <p class="font-italic mb-4">If you have a coupon code, please enter it in the box below</p>
             
               <form action="cart/coupon" method="POST">
-                <div class="input-group mb-4 border  p-2">
-                <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0" style="background: transparent;" name='coupon' id='coupon'>
+                <div class="input-group mb-4 border  p-2 ">
+                <input type="text" placeholder="Apply coupon" aria-describedby="button-addon3" class="form-control border-0 " style="background: transparent;" name='coupon' id='coupon' <%= coupon %>>
                 <div class="input-group-append border-0">       
                       <button id="button-addon3"  class="btn btn-primary px-4 " onclick="submit" ><i class="fa fa-gift mr-2"></i>Add Coupon</button>  
                 </div>

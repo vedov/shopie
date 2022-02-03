@@ -26,6 +26,7 @@
               <h1 class="h3 mb-0 text-gray-800">My Wish List</h1>
             </div>
 
+            <!-- Wish List  table -->
             <div class="table-responsive">
               <table class="table">
                 <thead>
@@ -43,6 +44,9 @@
                 </thead>
                 <tbody>
                   <% for (var i = 0; i < products.length; i++) { %>
+                  <div id="productsLength" style="display: none">
+                    <%= products.length %>
+                  </div>
                   <tr>
                     <th scope="row" class="border-0">
                       <div class="p-2">
@@ -57,15 +61,21 @@
                             <a
                               href="/item/<%= products[i].id %>"
                               class="text-dark d-inline-block align-middle"
+                              id="<%= i %>"
                               ><%= products[i].name %></a
                             >
                           </h5>
                           <div class="d-flex">
-                            <span class="h6" style="margin: auto 0"
-                              ><%- Math.round((products[i].avgRating +
-                              Number.EPSILON) * 10) / 10 %></span
-                            >
-                            <i class="fas fa-star star"></i>
+                            <div class="d-flex">
+                              <span class="h6" style="margin: auto 0"
+                                ><%- Math.round((products[i].avgRating +
+                                Number.EPSILON) * 10) / 10 %></span
+                              >
+                              <i class="fas fa-star star"></i>
+                              <span style="display: none" id="item<%= i %>"
+                                ><%= products[i].id %></span
+                              >
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -75,7 +85,7 @@
                     </td>
                     <td class="border-0 align-middle">
                       <form
-                        action="/item/cart/remove/<%- products[i].id %>"
+                        action="/user/wishList/remove/<%- products[i].id %>"
                         method="POST"
                       >
                         <button

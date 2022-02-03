@@ -13,6 +13,8 @@ const parser = require("../middleware/cloudinary");
 } = require("../middleware/authValidators"); */
 
 router.get("/", userController.getDashboard);
+router.get("/:id", userController.getUserProfile);
+router.get("/:id/:category", userController.getUserProfile);
 router.post("/", parser.array("imageUrls"), itemController.addItem);
 router.get("/catalogue", itemController.getCatalogue);
 router.get("/cart", cartController.getCart);
@@ -25,6 +27,7 @@ router.get("/users", userController.getUsers);
 router.get("/users/:id", userController.getUser);
 router.get("/users/delete/:id", userController.deleteUser);
 router.get("/wishList", wishListController.getWishList);
+router.post("/wishList/remove/:id", wishListController.removeFromWishList);
 
 /* router.post("/register", registrationValidator, index.postRegister); */
 module.exports = router;

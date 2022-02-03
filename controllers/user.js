@@ -37,6 +37,54 @@ const getUser = async (req, res) => {
   }
 };
 
+const getUserProfile = async (req, res) => {
+  try {
+    const user = await userService.getUser(req.params.id);
+    const userType = await userService.getUserTypeById(user.userType);
+
+    if (userType == "Shop") {
+      let items;
+      if (req.params.category) {
+        items = await itemService.getCatalogueByCategory(
+          user._id,
+          req.params.category
+        );
+      } else {
+        items = await itemService.getCatalogue(user._id);
+      }
+
+      const completed = await orderService.getCompletedOrders(user);
+      const orders = await orderService.getShopOrders(user);
+      const categoriesData = await categoryService.getCategories(req, res);
+      const typesData = await itemTypeService.getItemTypes(req, res);
+      let categories = [];
+      let types = [];
+      categoriesData.forEach(function (item) {
+        categories.push(item);
+      });
+      typesData.forEach(function (item) {
+        types.push(item);
+      });
+      res.render("shop", {
+        user: user,
+        products: items,
+        itemsCount: items.length,
+        acceptedCount: completed.length,
+        ordersCount: orders.length,
+        categories: categories,
+        types: types,
+      });
+    }
+    if (userType == "Customer") {
+      res.render("user", {
+        user: user,
+      });
+    }
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
 const getUserByEmail = async (req, res) => {
   try {
     const user = await userService.getUserByEmail(req.params.email);
@@ -156,4 +204,5 @@ module.exports = {
   getUserByEmail,
   getDashboard,
   getSettings,
+  getUserProfile,
 };

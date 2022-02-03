@@ -28,7 +28,28 @@ const addToWishList = async (user, item) => {
   }
 };
 
+const removeFromWishList = async (user, item) => {
+  try {
+    const wishList = await WishList.findOne({ user: user });
+    const items = wishList.items;
+    for (i = 0; i < items.length; i++) {
+      if (JSON.stringify(items[i]) == JSON.stringify(item._id)) {
+        items.splice(i, 1);
+        break;
+      }
+    }
+    wishList.items = wishList.items;
+    wishList.save();
+  } catch (error) {
+    throw {
+      error: "Error while trying to delete from Wish List!",
+      details: error,
+    };
+  }
+};
+
 module.exports = {
   getWishList,
   addToWishList,
+  removeFromWishList,
 };
