@@ -34,46 +34,46 @@
                   </h1>
                 </div>
 
-                <div class="col-md-12 mx-auto">
-                  <div class="card-deck py-3">
-                    <% for (var i = 0; i < interests.length; i++) { %>
-                    <div class="card">
-                      <img
-                        class="card-img-top"
-                        style="
-                          max-height: 300px;
-                          max-width: 100%;
-                          object-fit: cover;
-                        "
-                        src="<%= interests[i].imgUrl %>"
-                        alt="Card image cap"
-                      />
-                      <div class="card-body">
-                        <h5 class="card-title text-center">
-                          <%= interests[i].name %>
-                        </h5>
-                      </div>
-                    </div>
-                    <% } %>
-                  </div>
-                </div>
+              
                 <hr />
-                <div class="row mx-auto w-50">
+                <div class="row d-flex flex-wrap">
                   <form action="" method="POST">
-       
-                    <% for (var j = 0;j<interests.length; j++) {%>
-                      <input
-                        type="submit"
-                        class="w-100 btn btn-lg btn-primary align-self-center"
-                        id="interests"
-                        name="interests"
-                        placeholder="Interests"
-                        value="<%= interests[j].id %>"
-                      />
+                    <% for (var i = 0;i<interests.length; i++) {%>
+                      <label >
+                        <input
+                          type="checkbox"
+                          class="card-input-element d-none"
+                          id="interest-<%= interests[i].name %>"
+                          name="interests"
+                          placeholder="Interests"
+                          value="<%= interests[i].id %>"
+                        />
+                        <div class="card card-body  d-flex flex-column ">
+                          <img
+                          class="card-img-top"
+                          style="
+                            width: 200px;
+                            height: 200px;
+                            object-fit: cover;
+                          "
+                          src="<%= interests[i].imgUrl %>"
+                          alt="Card image cap"
+                          />
+                          <h5 class="card-title text-center mt-4 text-secondary">
+                          <strong><%= interests[i].name %></strong>
+                          </h5>
+                        </div>
+                      </label>
                     <% }%>
-                
+                    <div class="d-flex col-md-12 justify-content-center my-4">
+                        <button
+                          class="btn btn-primary flex-shrink-0 col-md-6  "
+                          onclick="submit"
+                        >
+                          Start Shopping
+                        </button>
+                        </div>
                     </form>
-                  </form>
                 </div>
               </div>
             </div>
@@ -82,7 +82,5 @@
       </div>
     </div>
 
-    <!-- Scripts-->
-    <%- include('../views/components/scripts/scripts.ejs') -%>
   </body>
 </html>

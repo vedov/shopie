@@ -136,22 +136,6 @@ const editUser = async (req, res) => {
   }
 };
 
-const addUserInterest = async (user, interest) => {
-  try {
-    console.log("...............", user, user.interest);
-  } catch (err) {
-    throw { error: "Error adding interest", details: error };
-  }
-};
-
-const saveUserInterests = async (user, interests) => {
-  user.interests = interests;
-};
-const getInterestSelect = async (req, res) => {
-  const interests = await InterestService.getInterests();
-  res.render("userinterests", { interests: interests });
-};
-
 const deleteUser = async (req, res) => {
   try {
     const removedUser = await userService.deleteUser(req.params.id);
@@ -172,5 +156,4 @@ module.exports = {
   getUserByEmail,
   getDashboard,
   getSettings,
-  addUserInterest,
 };

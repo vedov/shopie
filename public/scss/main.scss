@@ -121,3 +121,26 @@ input[type="file"]::file-selector-button:hover {
   background-color: rebeccapurple;
   padding: 1em;
 }
+
+.card-input-element + .card {
+  color: var(--primary);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: all ease-in 0.2s;
+}
+
+.card-input-element + .card:hover {
+  cursor: pointer;
+}
+
+.card-input-element:checked + .card {
+  background-color: $primary;
+  transition: all ease-in 0.2s;
+  h5 {
+    strong {
+      color: $white;
+    }
+  }
+}

@@ -124,6 +124,12 @@ const addToUserRevenue = async (id, revenue) => {
   user.save();
 };
 
+const addToUserInterests = async (id, interests) => {
+  const user = await User.findById(id);
+  user.interests = interests;
+  user.save();
+};
+
 module.exports = {
   getUsers,
   getUser,
@@ -136,4 +142,5 @@ module.exports = {
   getUserType,
   getUserTypeById,
   addToUserRevenue,
+  addToUserInterests,
 };

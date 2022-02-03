@@ -50,8 +50,8 @@ const register = async (req, res) => {
     const newUser = await UserService.addUser(user);
     const token = await AuthService.createToken(newUser);
     res.cookie("token", token);
-    res.status(201).send({ token, user: newUser });
-    console.log(newUser);
+
+    res.redirect("/register/interests");
   } catch (error) {
     res.status(400).send(error).end();
   }
@@ -64,6 +64,7 @@ const getInterestSelect = async (req, res) => {
   const interests = await InterestService.getInterests();
   res.render("userinterests", { interests: interests });
 };
+
 const addUserInterest = async (req, res) => {
   try {
     token = req.cookies.token;
@@ -72,11 +73,11 @@ const addUserInterest = async (req, res) => {
     const user = await UserService.getUser(currentUser.id);
     const interests = req.body.interests;
 
-    console.log(interests);
-
-    user = await UserService.editUser(currentUser.id, interests);
-
-    res.status(200).json({ message: "Interest added Succesfully" }).end();
+    const userInterests = await UserService.addToUserInterests(
+      user.id,
+      interests
+    );
+    res.redirect("/user");
   } catch (error) {
     res.status(400).send(error).end();
   }
