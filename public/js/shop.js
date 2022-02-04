@@ -1,9 +1,9 @@
 const socket = io();
 
 socket.on("customer-notification", (data) => {
-  $.notify("Received order from ${data.text}", {
-    className: "info",
-    position: "bottom center",
+  $.notify("You have received a new order for: " + data.text, {
+    className: "success",
+    position: "top center",
     autoHide: false,
     arrowShow: true,
   });

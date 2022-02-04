@@ -47,7 +47,7 @@
                     <div class="p-2">
                       <img src="<%= products[i].imageUrls[0] %>" alt="" width="70" class="img-fluid rounded">
                       <div class="ml-3 d-inline-block align-middle">
-                        <h5 class="mb-0" > <a href="/item/<%= products[i].id %>" class="text-dark d-inline-block align-middle" id="<%= i %>"><%= products[i].name %></a></h5> <div class="d-flex">
+                        <h5 class="mb-0" > <a href="/item/<%= products[i].id %>" class="text-dark d-inline-block align-middle" id="itemname<%= i %>"><%= products[i].name %></a></h5> <div class="d-flex">
                      <div class="d-flex">
                        <span class="h6" style="margin: auto 0;display: none;" id="shop<%= i %>"
                           ><%- products[i].shop %></span>
@@ -173,12 +173,11 @@
     <!-- Scripts-->
     <script src="/socket.io/socket.io.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script>
-        const socket = io();
-    </script>
+
 
      <script src="/js/customer.js"></script>
     <script>
+    const socket = io();
     var length = document.getElementById('productsLength').innerText;
     var price = document.getElementById('totalprice').innerText;
     var customer = document.getElementById('customer').innerText;
@@ -186,18 +185,16 @@
     var priceInput = document.getElementById('priceInput');
     var customerInput = document.getElementById('customerInput');
     var products = [];
+    var productnames = [];
     var shops = [];
     var notify = document.getElementById('notify').innerText;
     for (var i = 0; i < length; i++) {
         products.push(document.getElementById('item' + i).innerText);
+        productnames.push(document.getElementById('itemname' + i).innerText);
     }
     itemsInput.value = products;
     priceInput.value = price;
     customerInput.value = customer;
-    for (var i = 0; i < length; i++) {
-        shops.push(document.getElementById('shop' + i).innerText);
-    }
-    
     </script>
   </body>
 </html>
