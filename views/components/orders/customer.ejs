@@ -26,6 +26,7 @@
     </thead>
     <tbody>
       <% for (var i = 0; i < orders.length; i++) { %>
+         <% if(orders[i].orderStatus != 'Cancelled') { %>
       <tr>
         <td class="border-0 align-top">
           <strong><%= orders[i]._id %></strong>
@@ -38,6 +39,7 @@
           <div class="p-2">
             <% for(j=0;j<orders[i].orderItems.length;j++) { var item =
             orders[i].orderItems[j]; %>
+           
             <div class="d-flex flex-column">
               <div class="d-flex" class="align-items-start">
                 <img
@@ -53,6 +55,7 @@
               </div>
             </div>
             <% } %>
+            
           </div>
         </td>
 
@@ -100,11 +103,12 @@
                       </form>
                       <% } %>
                       <% if(orders[i].orderStatus == 'Refused') { %>
-                      <span class="badge bg-danger">Order Refused</span>
+                      <span class="badge bg-danger text-white">Order Refused</span>
                       <% } %>
                  
                     </td>
       </tr>
+      <% } %>
       <% } %>
     </tbody>
   </table>

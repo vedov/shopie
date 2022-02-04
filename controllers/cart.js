@@ -17,7 +17,8 @@ const getCurrentUser = async (req, res) => {
 const getCart = async (req, res) => {
   try {
     const currentUser = await getCurrentUser(req, res);
-    const cart = await cartService.getCart(currentUser._id);
+    let cart = await cartService.getCart(currentUser._id);
+    if (cart == null) cart = [];
     let cartProducts = [];
     for (item of cart.items) {
       let temp = await itemService.getItem(item);

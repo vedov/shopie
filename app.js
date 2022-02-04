@@ -20,6 +20,8 @@ const interestRouter = require("./routes/interest");
 const itemTypeRouter = require("./routes/itemType");
 
 const PORT = process.env.PORT;
+const http = require("http");
+let socketio = require("./socketio");
 
 // View engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -59,6 +61,11 @@ app.use(function (err, req, res, next) {
   res.render(err);
 });
 
-app.listen(PORT, () => console.log(`Server is listening on port ${PORT}...`));
+var server = http.createServer(app);
+socketio.io.attach(server);
+
+server.listen(PORT, () =>
+  console.log(`Server is listening on port ${PORT}...`)
+);
 
 module.exports = app;

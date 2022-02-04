@@ -41,6 +41,7 @@
               <tbody>
                 <% for (var i = 0; i < products.length; i++) { %>
                   <div id='productsLength' style="display: none;"><%= products.length %></div>
+
                 <tr>
                   <th scope="row" class="border-0">
                     <div class="p-2">
@@ -48,6 +49,9 @@
                       <div class="ml-3 d-inline-block align-middle">
                         <h5 class="mb-0" > <a href="/item/<%= products[i].id %>" class="text-dark d-inline-block align-middle" id="<%= i %>"><%= products[i].name %></a></h5> <div class="d-flex">
                      <div class="d-flex">
+                       <span class="h6" style="margin: auto 0;display: none;" id="shop<%= i %>"
+                          ><%- products[i].shop %></span>
+                        
                         <span class="h6" style="margin: auto 0"
                           ><%- Math.round((products[i].avgRating + Number.EPSILON) *
                           10) / 10 %></span
@@ -138,6 +142,12 @@
                   Place Order
                   </button>
               </form>
+              <button
+                        class="btn btn-outline-dark flex-shrink-0 heart"
+                        id="submitOrder"
+           
+                      ></button>
+                      <h5 id="notify">A</h5>
           </div>
         </div>
       </div>
@@ -161,21 +171,33 @@
     <%- include('../views/components/logout/logout.ejs') -%>
 
     <!-- Scripts-->
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
-var length = document.getElementById('productsLength').innerText;
-var price = document.getElementById('totalprice').innerText;
-var customer = document.getElementById('customer').innerText;
-var itemsInput = document.getElementById('itemsInput');
-var priceInput = document.getElementById('priceInput');
-var customerInput = document.getElementById('customerInput');
-var products = [];
-for(var i=0;i<length;i++){
-  products.push(document.getElementById('item'+i).innerText);
-}
-itemsInput.value = products;
-priceInput.value = price;
-customerInput.value = customer;
-  
-</script>
+        const socket = io();
+    </script>
+
+     <script src="/js/customer.js"></script>
+    <script>
+    var length = document.getElementById('productsLength').innerText;
+    var price = document.getElementById('totalprice').innerText;
+    var customer = document.getElementById('customer').innerText;
+    var itemsInput = document.getElementById('itemsInput');
+    var priceInput = document.getElementById('priceInput');
+    var customerInput = document.getElementById('customerInput');
+    var products = [];
+    var shops = [];
+    var notify = document.getElementById('notify').innerText;
+    for (var i = 0; i < length; i++) {
+        products.push(document.getElementById('item' + i).innerText);
+    }
+    itemsInput.value = products;
+    priceInput.value = price;
+    customerInput.value = customer;
+    for (var i = 0; i < length; i++) {
+        shops.push(document.getElementById('shop' + i).innerText);
+    }
+    
+    </script>
   </body>
 </html>
