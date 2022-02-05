@@ -25,8 +25,6 @@
 
   <body class="body-wrapper">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#"
-        >
       <button
         class="navbar-toggler"
         type="button"
@@ -40,17 +38,12 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item active">
-            <a class="nav-link" href="#"
-              >Home <span class="sr-only">(current)</span></a
-            >
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#">Disabled</a>
           </li>
         </ul>
         <div>
@@ -82,11 +75,12 @@
               <div class="container">
                 <div class="row justify-content-center">
                   <div class="col-lg-8 col-md-8 align-content-center">
-                    
-                    <form class="search"
+                    <form
+                      class="search"
                       action=""
                       id="search-form"
-                      method="GET">
+                      method="GET"
+                    >
                       <div class="form-row">
                         <div class="form-group col-md-10">
                           <input
@@ -97,7 +91,7 @@
                             onchange="searchItems(this.value)"
                           />
                         </div>
-                        
+
                         <div class="form-group col-md-2 align-self-center">
                           <button type="submit" class="btn btn-primary">
                             Search Now
@@ -123,48 +117,71 @@
             <!-- Header Contetnt -->
             <div class="content-block">
               <div class="my-5">
-              <h1>Top Selections</h1>
-              <p>See What's Popular</p>
+                <h1>Top Selections</h1>
+                <p>See What's Popular</p>
               </div>
-                 <!-- Content Row -->
-            <div class="row flex-wrap justify-content-start">
-            <% for (var i = 0; i < bestItems.length; i++) { %>
-              <div class="col-md-3 my-2">
-                <div class="card card-01 pt-4">
-                  <img class="card-img-top " src="<%= bestItems[i].imageUrls[0] %>" alt="Card image cap" style="max-height: 200px; width:100%;object-fit:contain"/>
-                  <div class="card-body">
-                    <h4 class="card-title" style="
-                        display: block;
-                        text-overflow: ellipsis;
-                        word-wrap: break-word;
-                        overflow: hidden;
-                        max-height: 3.6em;
-                        line-height: 1.2em;
-                      "><strong><%= bestItems[i].name %></strong></h4>
-                    <div class="d-flex w-100 justify-content-center align-items-center">
-                      <span class="h5" style="margin: auto 0">
-                      <%- Math.round((bestItems[i].avgRating + Number.EPSILON) * 10) / 10 %>
-                      </span>
-                      <i class="fas fa-star star" style="color:#ffd700"></i>
+              <!-- Content Row -->
+              <div class="row flex-wrap justify-content-start">
+                <% for (var i = 0; i < bestItems.length; i++) { %>
+                <div class="col-md-3 my-2">
+                  <div class="card card-01 pt-4">
+                    <img
+                      class="card-img-top"
+                      src="<%= bestItems[i].imageUrls[0] %>"
+                      alt="Card image cap"
+                      style="
+                        max-height: 200px;
+                        width: 100%;
+                        object-fit: contain;
+                      "
+                    />
+                    <div class="card-body">
+                      <h4
+                        class="card-title"
+                        style="
+                          display: block;
+                          text-overflow: ellipsis;
+                          word-wrap: break-word;
+                          overflow: hidden;
+                          max-height: 3.6em;
+                          line-height: 1.2em;
+                        "
+                      >
+                        <strong><%= bestItems[i].name %></strong>
+                      </h4>
+                      <div
+                        class="d-flex w-100 justify-content-center align-items-center"
+                      >
+                        <span class="h5" style="margin: auto 0">
+                          <%- Math.round((bestItems[i].avgRating +
+                          Number.EPSILON) * 10) / 10 %>
+                        </span>
+                        <i class="fas fa-star star" style="color: #ffd700"></i>
+                      </div>
+                      <p
+                        class="card-text py-2"
+                        style="
+                          display: block; /* or inline-block */
+                          text-overflow: ellipsis;
+                          word-wrap: break-word;
+                          overflow: hidden;
+                          max-height: 8.8em;
+                          line-height: 1.4em;
+                        "
+                      >
+                        <%= bestItems[i].shortDesc %>
+                      </p>
+                      <a
+                        href="/item/<%= bestItems[i].id %>"
+                        class="btn btn-primary w-100"
+                        >See More</a
+                      >
                     </div>
-                    <p class="card-text py-2 " style=" 
-                    display: block;/* or inline-block */
-                    text-overflow: ellipsis;
-                    word-wrap: break-word;
-                    overflow: hidden;
-                    max-height: 8.8em;
-                    line-height: 1.4em;">
-                    <%= bestItems[i].shortDesc %>
-                    </p>
-                    <a href="/item/<%= bestItems[i].id %>" class="btn btn-primary w-100">See More</a>
                   </div>
                 </div>
-              </div>
-             
-                
-                <% } %>
 
-            </div>
+                <% } %>
+              </div>
             </div>
           </div>
         </div>
@@ -180,48 +197,75 @@
             <!-- Header Contetnt -->
             <div class="content-block">
               <div class="my-5">
-              <h1>Recommendations</h1>
-              <p>Based On Your Interests</p>
+                <h1>Recommendations</h1>
+                <p>Based On Your Interests</p>
               </div>
-               <!-- Content Row -->
-            <div class="row">
-              <div class="d-flex flex-wrap justify-content-start">
-            <% for (var i = 0; i < interestItems.length; i++) { %>
-                <div class="col-md-3 my-2">
-                <div class="card card-01 pt-4">
-                  <img class="card-img-top " src="<%= interestItems[i].imageUrls[0] %>" alt="Card image cap" style="max-height: 200px; width:100%;object-fit:contain"/>
-                  <div class="card-body">
-                    <h4 class="card-title" style="
-                        display: block;
-                        text-overflow: ellipsis;
-                        word-wrap: break-word;
-                        overflow: hidden;
-                        max-height: 3.6em;
-                        line-height: 1.2em;
-                      "><strong><%= interestItems[i].name %></strong></h4>
-                    <div class="d-flex w-100 justify-content-center align-items-center">
-                      <span class="h5" style="margin: auto 0">
-                      <%- Math.round((interestItems[i].avgRating + Number.EPSILON) * 10) / 10 %>
-                      </span>
-                      <i class="fas fa-star star" style="color:#ffd700"></i>
+              <!-- Content Row -->
+              <div class="row">
+                <div class="d-flex flex-wrap justify-content-start">
+                  <% for (var i = 0; i < interestItems.length; i++) { %>
+                  <div class="col-md-3 my-2">
+                    <div class="card card-01 pt-4">
+                      <img
+                        class="card-img-top"
+                        src="<%= interestItems[i].imageUrls[0] %>"
+                        alt="Card image cap"
+                        style="
+                          max-height: 200px;
+                          width: 100%;
+                          object-fit: contain;
+                        "
+                      />
+                      <div class="card-body">
+                        <h4
+                          class="card-title"
+                          style="
+                            display: block;
+                            text-overflow: ellipsis;
+                            word-wrap: break-word;
+                            overflow: hidden;
+                            max-height: 3.6em;
+                            line-height: 1.2em;
+                          "
+                        >
+                          <strong><%= interestItems[i].name %></strong>
+                        </h4>
+                        <div
+                          class="d-flex w-100 justify-content-center align-items-center"
+                        >
+                          <span class="h5" style="margin: auto 0">
+                            <%- Math.round((interestItems[i].avgRating +
+                            Number.EPSILON) * 10) / 10 %>
+                          </span>
+                          <i
+                            class="fas fa-star star"
+                            style="color: #ffd700"
+                          ></i>
+                        </div>
+                        <p
+                          class="card-text py-2"
+                          style="
+                            display: block; /* or inline-block */
+                            text-overflow: ellipsis;
+                            word-wrap: break-word;
+                            overflow: hidden;
+                            max-height: 8.8em;
+                            line-height: 1.4em;
+                          "
+                        >
+                          <%= interestItems[i].shortDesc %>
+                        </p>
+                        <a
+                          href="/item/<%= interestItems[i].id %>"
+                          class="btn btn-primary w-100"
+                          >See More</a
+                        >
+                      </div>
                     </div>
-                    <p class="card-text py-2 " style=" 
-                    display: block;/* or inline-block */
-                    text-overflow: ellipsis;
-                    word-wrap: break-word;
-                    overflow: hidden;
-                    max-height: 8.8em;
-                    line-height: 1.4em;">
-                    <%= interestItems[i].shortDesc %>
-                    </p>
-                    <a href="/item/<%= interestItems[i].id %>" class="btn btn-primary w-100">See More</a>
                   </div>
+                  <% } %>
                 </div>
               </div>
-                <% } %>
-                
-              </div>
-            </div>
             </div>
           </div>
         </div>
@@ -236,49 +280,76 @@
           <div class="col-md-12">
             <!-- Header Contetnt -->
             <div class="content-block">
-             <div class="my-5">
-              <h1>Feeling Lucky</h1>
-              <p>Surprise Yourself</p>
+              <div class="my-5">
+                <h1>Feeling Lucky</h1>
+                <p>Surprise Yourself</p>
               </div>
-               <!-- Content Row -->
-            <div class="row">
-              <div class="d-flex flex-wrap justify-content-start">
-            <% for (var i = 0; i < randomItems.length; i++) { %>
-                <div class="col-md-3 my-2">
-                <div class="card card-01 pt-4">
-                  <img class="card-img-top " src="<%= randomItems[i].imageUrls[0] %>" alt="Card image cap" style="max-height: 200px; width:100%;object-fit:contain"/>
-                  <div class="card-body">
-                    <h4 class="card-title" style="
-                        display: block;
-                        text-overflow: ellipsis;
-                        word-wrap: break-word;
-                        overflow: hidden;
-                        max-height: 3.6em;
-                        line-height: 1.2em;
-                      "><strong><%= randomItems[i].name %></strong></h4>
-                    <div class="d-flex w-100 justify-content-center align-items-center">
-                      <span class="h5" style="margin: auto 0">
-                      <%- Math.round((randomItems[i].avgRating + Number.EPSILON) * 10) / 10 %>
-                      </span>
-                      <i class="fas fa-star star" style="color:#ffd700"></i>
+              <!-- Content Row -->
+              <div class="row">
+                <div class="d-flex flex-wrap justify-content-start">
+                  <% for (var i = 0; i < randomItems.length; i++) { %>
+                  <div class="col-md-3 my-2">
+                    <div class="card card-01 pt-4">
+                      <img
+                        class="card-img-top"
+                        src="<%= randomItems[i].imageUrls[0] %>"
+                        alt="Card image cap"
+                        style="
+                          max-height: 200px;
+                          width: 100%;
+                          object-fit: contain;
+                        "
+                      />
+                      <div class="card-body">
+                        <h4
+                          class="card-title"
+                          style="
+                            display: block;
+                            text-overflow: ellipsis;
+                            word-wrap: break-word;
+                            overflow: hidden;
+                            max-height: 3.6em;
+                            line-height: 1.2em;
+                          "
+                        >
+                          <strong><%= randomItems[i].name %></strong>
+                        </h4>
+                        <div
+                          class="d-flex w-100 justify-content-center align-items-center"
+                        >
+                          <span class="h5" style="margin: auto 0">
+                            <%- Math.round((randomItems[i].avgRating +
+                            Number.EPSILON) * 10) / 10 %>
+                          </span>
+                          <i
+                            class="fas fa-star star"
+                            style="color: #ffd700"
+                          ></i>
+                        </div>
+                        <p
+                          class="card-text py-2"
+                          style="
+                            display: block; /* or inline-block */
+                            text-overflow: ellipsis;
+                            word-wrap: break-word;
+                            overflow: hidden;
+                            max-height: 8.8em;
+                            line-height: 1.4em;
+                          "
+                        >
+                          <%= randomItems[i].shortDesc %>
+                        </p>
+                        <a
+                          href="/item/<%= randomItems[i].id %>"
+                          class="btn btn-primary w-100"
+                          >See More</a
+                        >
+                      </div>
                     </div>
-                    <p class="card-text py-2 " style=" 
-                    display: block;/* or inline-block */
-                    text-overflow: ellipsis;
-                    word-wrap: break-word;
-                    overflow: hidden;
-                    max-height: 8.8em;
-                    line-height: 1.4em;">
-                    <%= randomItems[i].shortDesc %>
-                    </p>
-                    <a href="/item/<%= randomItems[i].id %>" class="btn btn-primary w-100">See More</a>
                   </div>
+                  <% } %>
                 </div>
               </div>
-                <% } %>
-                
-              </div>
-            </div>
             </div>
           </div>
         </div>
@@ -286,15 +357,11 @@
       <!-- Container End -->
     </section>
 
-  
     <script>
-
-     
-      searchItems = function(text){
-        
+      searchItems = function (text) {
         console.log(text);
-        document.getElementById('search-form').action = '/search/'+text;
-      }
+        document.getElementById("search-form").action = "/search/" + text;
+      };
     </script>
   </body>
 </html>
