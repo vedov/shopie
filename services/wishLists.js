@@ -4,7 +4,7 @@ const getWishList = async (user) => {
     const wishList = await WishList.findOne({ user: user });
     return wishList;
   } catch (error) {
-    throw { error: "Error while trying to fetch interests!", details: error };
+    throw { error: "Error while trying to fetch wishList!", details: error };
   }
 };
 

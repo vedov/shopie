@@ -15,19 +15,19 @@ const parser = require("../middleware/cloudinary");
 router.get("/", userController.getDashboard);
 router.post("/", parser.array("imageUrls"), itemController.addItem);
 router.get("/catalogue", itemController.getCatalogue);
+router.post("/orders/setorderstatus/:id", orderController.setOrderStatus);
+router.get("/settings", userController.getSettings);
 router.get("/cart", cartController.getCart);
 router.post("/cart/coupon", cartController.addCoupon);
 router.post("/cart/placeorder", orderController.addOrder);
+router.get("/wishList", wishListController.getWishList);
+router.post("/wishList/remove/:id", wishListController.removeFromWishList);
 router.get("/orders", orderController.getOrders);
-router.post("/orders/setorderstatus/:id", orderController.setOrderStatus);
-router.get("/settings", userController.getSettings);
 router.get("/:id", userController.getUserProfile);
 router.get("/:id/:category", userController.getUserProfile);
 router.get("/users", userController.getUsers);
 router.get("/users/:id", userController.getUser);
 router.get("/users/delete/:id", userController.deleteUser);
-router.get("/wishList", wishListController.getWishList);
-router.post("/wishList/remove/:id", wishListController.removeFromWishList);
 
 /* router.post("/register", registrationValidator, index.postRegister); */
 module.exports = router;

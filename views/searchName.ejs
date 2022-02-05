@@ -25,26 +25,63 @@
               <h1 class="h3 mb-0 text-gray-800">
                 Search Results for <%= name %>
               </h1>
-              <a
-                href="#"
-                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                ><i class="fas fa-download fa-sm text-white-50"></i> Generate
-                Report</a
-              >
             </div>
 
             <!-- Content Row -->
-            <div class="row mx-1 my-4">
-              <div class="d-flex flex-wrap justify-content-between">
+            <h2>Shops</h2>
+            <% for (var i = 0; i < shops.length; i++) { %>
+            <div class="col-xl-3 col-md-6 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div
+                        class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                      >
+                        <%=shops[i].username %>
+                      </div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">
+                        <a href="/user/<%=shops[i]._id %>"
+                          ><%=shops[i].fullName %></a
+                        >
+                      </div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <% } %>
+            <h2>Products</h2>
+            <div class="my-4">
+              <div class="d-flex flex-wrap justify-content-start">
                 <% for (var i = 0; i < products.length; i++) { %>
-                <div class="card" style="margin: 20px; max-width: 250px">
+                <div class="card col-md-2 mr-2 mb-2">
                   <img
                     class="card-img-top"
                     src="<%= products[i].imageUrls[0] %>"
                     alt="Card image cap"
+                    style="
+                      max-height: 250px;
+                      height: 250px;
+                      width: 100%;
+                      object-fit: contain;
+                    "
                   />
                   <div class="card-body">
-                    <h5 class="card-title">
+                    <h5
+                      class="card-title"
+                      style="
+                        display: block;
+                        text-overflow: ellipsis;
+                        word-wrap: break-word;
+                        overflow: hidden;
+                        max-height: 3.6em;
+                        line-height: 1.2em;
+                      "
+                    >
                       <a href="/item/<%= products[i].id %>"
                         ><%= products[i].name %></a
                       >
@@ -64,7 +101,7 @@
                     </p>
                     <a
                       href="/item/<%= products[i].id %>"
-                      class="btn btn-primary"
+                      class="btn btn-primary w-100 text-white"
                       >See More</a
                     >
                   </div>

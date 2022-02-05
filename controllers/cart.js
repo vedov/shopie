@@ -18,16 +18,24 @@ const getCart = async (req, res) => {
   try {
     const currentUser = await getCurrentUser(req, res);
     let cart = await cartService.getCart(currentUser._id);
-    if (cart == null) cart = [];
+
     let cartProducts = [];
-    for (item of cart.items) {
-      let temp = await itemService.getItem(item);
-      cartProducts.push(temp);
+    if (cart != null) {
+      for (item of cart.items) {
+        let temp = await itemService.getItem(item);
+        cartProducts.push(temp);
+      }
+      res.render("cart", {
+        customer: currentUser._id,
+        products: cartProducts,
+        price: cart.price,
+        coupon: "",
+      });
     }
     res.render("cart", {
       customer: currentUser._id,
-      products: cartProducts,
-      price: cart.price,
+      products: "",
+      price: "",
       coupon: "",
     });
   } catch (error) {

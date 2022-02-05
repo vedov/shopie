@@ -2,7 +2,7 @@
 <html lang="en">
   <%- include('../views/components/head/head.ejs') -%>
 
-  <body id="page-top" data-server-scope="<%= products %>">
+  <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
       <%- include('../views/components/sidebar/shopSidebar.ejs') -%>
@@ -113,7 +113,7 @@
                 <h5 class="font-weight-bold">$<span id='totalprice'><%= price + 10 %></span></h5>
               </li>
             </ul>     
-              <form action="cart/placeorder" method="POST">
+              <form action="/user/cart/placeorder" method="POST">
                 <input
               type="text"
               class="form-control"
@@ -147,7 +147,6 @@
                         id="submitOrder"
            
                       ></button>
-                      <h5 id="notify">A</h5>
           </div>
         </div>
       </div>
@@ -187,9 +186,10 @@
     var products = [];
     var productnames = [];
     var shops = [];
-    var notify = document.getElementById('notify').innerText;
+  
     for (var i = 0; i < length; i++) {
         products.push(document.getElementById('item' + i).innerText);
+        shops.push(document.getElementById('shop'+i).innerText);
         productnames.push(document.getElementById('itemname' + i).innerText);
     }
     itemsInput.value = products;

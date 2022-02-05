@@ -130,6 +130,28 @@ const addToUserInterests = async (id, interests) => {
   user.save();
 };
 
+const getUserInterests = async (id) => {
+  const user = await User.findById(id);
+
+  return user.interests;
+};
+
+const getUserByName = async (name) => {
+  try {
+    return await User.find({
+      $or: [
+        { username: { $regex: name, $options: "i" } },
+        { fullName: { $regex: name, $options: "i" } },
+      ],
+    });
+  } catch (error) {
+    throw {
+      error: "Error while trying to get User!",
+      details: error,
+    };
+  }
+};
+
 module.exports = {
   getUsers,
   getUser,
@@ -143,4 +165,6 @@ module.exports = {
   getUserTypeById,
   addToUserRevenue,
   addToUserInterests,
+  getUserByName,
+  getUserInterests,
 };

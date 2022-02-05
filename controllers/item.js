@@ -80,10 +80,11 @@ const getItemsByCategory = async (req, res) => {
 const getItemByName = async (req, res) => {
   try {
     const products = await itemService.getItemByName(req.params.name);
-    console.log(products);
+    const shops = await userService.getUserByName(req.params.name);
     res.render("searchName", {
       products: products,
       name: req.params.name,
+      shops: shops,
     });
   } catch (error) {
     res.status(404).json(error);

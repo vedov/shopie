@@ -22,7 +22,7 @@ const getOrders = async (req, res) => {
   try {
     const currentUser = await getCurrentUser(req, res);
     const userType = await userService.getUserTypeById(currentUser.userType);
-    let orders;
+    let orders = [];
     if (userType == "Shop") {
       orders = await orderService.getShopOrders(currentUser);
     } else if (userType == "Customer") {
@@ -66,8 +66,8 @@ const addOrder = async (req, res) => {
       orderItems: items,
       price: price,
     });
-    const cart = await cartService.clearCart(customer._id);
-    res.redirect("back");
+    //const cart = await cartService.clearCart(customer._id);
+    res.redirect("/user/orders");
   } catch (error) {
     res.status(400).json(error);
   }

@@ -15,7 +15,7 @@ const getInterests = async (req, res) => {
 const getInterest = async (req, res) => {
   try {
     const interest = await interestService.getInterest(req.params.id);
-    res.status(200).json(interest);
+    return interest.name;
   } catch (error) {
     res.status(404).json(error);
   }

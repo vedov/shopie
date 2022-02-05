@@ -19,14 +19,18 @@ const getWishList = async (req, res) => {
     const products = await wishListService.getWishList(currentUser._id);
 
     let wishList = [];
-    for (item of products.items) {
-      const temp = await itemService.getItem(item);
-      console.log(temp);
-      wishList.push(temp);
+    if (products != null) {
+      for (item of products.items) {
+        const temp = await itemService.getItem(item);
+        console.log(temp);
+        wishList.push(temp);
+      }
+      res.render("wishList", {
+        products: wishList,
+      });
     }
-
     res.render("wishList", {
-      products: wishList,
+      products: "",
     });
   } catch (error) {
     res.status(404).json(error);

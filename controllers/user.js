@@ -111,11 +111,20 @@ const getDashboard = async (req, res) => {
       types.push(item);
     });
 
-    if (userType == "Customer")
+    if (userType == "Customer") {
+      const shops = [];
+      const allusers = await userService.getUsers();
+      for (user of allusers) {
+        if ((await userService.getUserTypeById(user.userType)) == "Shop") {
+          shops.push(user);
+        }
+      }
+      console.log(shops);
       res.render("customerDashboard", {
         user: currentUser,
+        shops: shops,
       });
-    else if (userType == "Shop") {
+    } else if (userType == "Shop") {
       const items = await itemService.getCatalogue(currentUser._id);
       const completed = await orderService.getCompletedOrders(currentUser);
       const orders = await orderService.getShopOrders(currentUser);

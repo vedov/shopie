@@ -29,6 +29,7 @@
                       id="carouselExampleIndicators"
                       class="carousel slide"
                       data-ride="carousel"
+                      data-interval="1400"
                     >
                       <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -50,30 +51,6 @@
                         </div>
                         <% } %>
                       </div>
-                      <a
-                        class="carousel-control-prev"
-                        href="#carouselExampleControls"
-                        role="button"
-                        data-slide="prev"
-                      >
-                        <span
-                          class="carousel-control-prev-icon"
-                          aria-hidden="true"
-                        ></span>
-                        <span class="sr-only">Previous</span>
-                      </a>
-                      <a
-                        class="carousel-control-next"
-                        href="#carouselExampleControls"
-                        role="button"
-                        data-slide="next"
-                      >
-                        <span
-                          class="carousel-control-next-icon"
-                          aria-hidden="true"
-                        ></span>
-                        <span class="sr-only">Next</span>
-                      </a>
                     </div>
                   </div>
 
@@ -173,7 +150,7 @@
                     <ol class="list-group list-group-numbered">
                       <% for (var i = 0; i < reviews.length; i++) { %>
                       <li
-                        class="list-group-item d-flex justify-content-between align-items-start"
+                        class="list-group-item d-flex justify-content-between align-items-start my-2"
                       >
                         <div class="ms-2 me-auto">
                           <div class="fw-bold">
@@ -213,7 +190,8 @@
     <%- include('../views/components/forms/review/addReview.ejs') -%>
     <!-- Logout Modal-->
     <%- include('../views/components/logout/logout.ejs') -%>
-
+    <!-- Scripts-->
+    <%- include('../views/components/scripts/scripts.ejs') -%>
     <script>
       function callAddToCart() {
         alert("Item Added To Cart!");

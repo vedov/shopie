@@ -26,13 +26,16 @@ const getCustomerOrders = async (user) => {
       .sort({ orderDate: -1 })
       .populate("orderItems", "-__v")
       .populate("customer", "-__v");
+
     let customerOrders = [];
 
     for (order of orders) {
+      console.log(order);
       if (user._id.toString() == order.customer._id.toString()) {
         customerOrders.push(order);
       }
     }
+
     return customerOrders;
   } catch (error) {
     throw { error: "Error while trying to fetch orders!", details: error };
