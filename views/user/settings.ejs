@@ -27,28 +27,47 @@
                 <div class="overflow-hidden">
                   <div class="px-4 pt-0 pb-4 cover">
                     <img
-                      src="http://placehold.jp/1920x400.png"
+                      src="<%= user.coverImgUrl %>"
                       alt="..."
-                      class="img-cover"
+                      class="img-cover w-100"
+                      style="max-height: 400px; width: 100%; object-fit: cover"
                     />
                     <div
                       class="col-md-12 media align-items-end profile-head profile-info"
                     >
-                      <div class="profile mr-3">
+                      <div class="profile mr-3 d-flex flex-column">
                         <img
-                          src="https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=80"
+                          src="<%= user.profileImgUrl %>"
                           alt="..."
                           width="200"
+                          height="200"
+                          style="
+                            max-width: 200px;
+                            max-height: 200px;
+                            width: 200px;
+                            object-fit: contain;
+                          "
                           class="rounded mb-2 img-thumbnail"
-                        /><a
-                          href="#"
-                          class="btn btn-outline-dark btn-sm btn-block"
-                          >Edit profile</a
-                        >
+                        />
+                        <div class="w-100">
+                          <a
+                            class="nav-link collapsed d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm w-100"
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#editUserModal"
+                          >
+                            <i
+                              class="fas fa-plus fa-sm fa-fw mr-2 text-white"
+                            ></i>
+                            <span class="text-white">Edit User</span>
+                          </a>
+                        </div>
                       </div>
 
                       <div class="media-body mb-5">
-                        <h2 class="m-0"><b><%- user.fullName %></b></h2>
+                        <h2 class="m-0" id="user-fullname">
+                          <b><%- user.fullName %></b>
+                        </h2>
                         <p class="text-muted m-0">@<%- user.username %></p>
                         <p class="text-muted m-0"><%- user.email %></p>
                       </div>
@@ -85,7 +104,7 @@
         <!-- End of Main Content -->
 
         <!-- Footer -->
-        
+
         <!-- End of Footer -->
       </div>
       <!-- End of Content Wrapper -->
@@ -97,5 +116,9 @@
 
     <!-- Logout Modal-->
     <%- include('../views/components/logout/logout.ejs') -%>
+    <!-- Edit User Modal-->
+    <%- include('../views/components/forms/editUser/editUser.ejs') -%>
+    <!-- Scripts-->
+    <%- include('../views/components/scripts/scripts.ejs') -%>
   </body>
 </html>

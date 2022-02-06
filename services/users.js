@@ -81,26 +81,23 @@ const getUserTypeById = async (id) => {
   }
 };
 
-const editUser = async (id, fieldsForEdit) => {
+const editUser = async (
+  id,
+  fullname,
+  profileImgUrl,
+  coverImgUrl,
+  address,
+  phone
+) => {
   try {
-    const updates = Object.keys(fieldsForEdit);
-    console.log(updates);
-    const allowedUpdates = ["email", "password", "interests"];
-
-    const isValidOperation = updates.every((update) =>
-      allowedUpdates.includes(update)
-    );
-
-    if (!isValidOperation)
-      throw "Invalid field(s) for update! Allowed updates are: email, and password, interests.";
-
     const updatedUser = await User.findById(id);
     if (!updatedUser) throw "User does not exist!";
     console.log(updatedUser);
-    updates.forEach((update) => {
-      console.log(update);
-      updatedUser[update] = fieldsForEdit[update];
-    });
+    updatedUser.fullName = fullname;
+    updatedUser.profileImgUrl = profileImgUrl;
+    updatedUser.coverImgUrl = coverImgUrl;
+    updatedUser.address = address;
+    updatedUser.phone = phone;
     return await updatedUser.save();
   } catch (error) {
     console.log(error);

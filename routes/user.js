@@ -18,6 +18,20 @@ router.post("/", parser.array("imageUrls"), itemController.addItem);
 router.get("/catalogue", itemController.getCatalogue);
 router.post("/orders/setorderstatus/:id", orderController.setOrderStatus);
 router.get("/settings", userController.getSettings);
+router.post(
+  "/settings",
+  parser.fields([
+    {
+      name: "profileImgUrl",
+      maxCount: 1,
+    },
+    {
+      name: "coverImgUrl",
+      maxCount: 1,
+    },
+  ]),
+  userController.editUser
+);
 router.get("/cart", cartController.getCart);
 router.post("/cart/coupon", cartController.addCoupon);
 router.post("/cart/placeorder", orderController.addOrder);

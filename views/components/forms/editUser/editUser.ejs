@@ -1,0 +1,94 @@
+<div
+  class="modal fade"
+  id="editUserModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Item</h5>
+        <button
+          class="close"
+          type="button"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Edit User
+        <form
+          class="item"
+          action=""
+          id="form"
+          enctype="multipart/form-data"
+          method="POST"
+        >
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              placeholder="Name"
+              onKeyPress="return preventSubmit()"
+              value="<%= user.fullName%>"
+            />
+          </div>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="address"
+              name="address"
+              placeholder="Address"
+              onKeyPress="return preventSubmit()"
+            />
+          </div>
+
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control"
+              id="phone"
+              name="phone"
+              placeholder="Phone Number"
+              onKeyPress="return preventSubmit()"
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="profileImgUrl">Upload Profile Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              id="profileImgUrl"
+              name="profileImgUrl"
+              class="form-control imageUpload"
+              placeholder="Add Profile Image"
+            />
+          </div>
+          <div class="form-group">
+            <label for="coverImgUrl">Upload Cover Image</label>
+            <input
+              type="file"
+              accept="image/*"
+              id="coverImgUrl"
+              name="coverImgUrl"
+              class="form-control imageUpload"
+              placeholder="Add Cover Image"
+            />
+          </div>
+
+          <button class="w-100 btn btn-lg btn-primary" type="submit">
+            Save Changes
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

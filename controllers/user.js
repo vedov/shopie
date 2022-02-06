@@ -227,8 +227,19 @@ const addUser = async (req, res) => {
 
 const editUser = async (req, res) => {
   try {
-    const updatedUser = await userService.editUser(req.params.id, req.body);
-    res.status(201).json(updatedUser);
+    const currentUser = await getCurrentUser(req, res);
+    const data = req.files;
+    const profileUrl = data.profileImgUrl[0].path;
+    const coverUrl = data.coverImgUrl[0].path;
+    const updatedUser = await userService.editUser(
+      currentUser._id,
+      req.body.name,
+      profileUrl,
+      coverUrl,
+      req.body.address,
+      req.body.phone
+    );
+    res.redirect("back");
   } catch (error) {
     if (error.details === "User does not exist!") res.status(404).json(error);
     res.status(400).json(error);
