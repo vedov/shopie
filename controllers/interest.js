@@ -3,7 +3,6 @@ const interestService = require("../services/interests");
 const getInterests = async (req, res) => {
   try {
     const interests = await interestService.getInterests();
-
     res.render("interests", {
       interests: interests,
     });

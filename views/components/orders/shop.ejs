@@ -48,7 +48,7 @@
         <td scope="row " class="border-0">
           <div class="p-2">
             <% for(j=0;j<orders[i].orderItems.length;j++) { var item =
-            orders[i].orderItems[j]; if(user._id.toString() ==
+            orders[i].orderItems[j]; if(currentUser._id.toString() ==
             item.shop.toString()) { %>
             <div class="d-flex flex-column">
               <div class="d-flex" class="align-items-start">
@@ -64,7 +64,7 @@
                 </a>
               </div>
             </div>
-            <% } }%>
+            <% } %> <%}%>
           </div>
         </td>
 
@@ -109,7 +109,8 @@
                         </button>
                           
                         </input>
-                      </form><% } %>
+                      </form>
+                      <% } %>
                  
                     </td>
       </tr>

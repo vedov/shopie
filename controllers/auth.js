@@ -87,7 +87,7 @@ const getLogin = async (req, res) => {
 
 const logout = async (req, res) => {
   res.clearCookie("token");
-  res.redirect("/");
+  res.redirect("/login");
 };
 
 module.exports = {

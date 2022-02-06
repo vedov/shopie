@@ -81,23 +81,20 @@ const getUserTypeById = async (id) => {
   }
 };
 
-const editUser = async (
-  id,
-  fullname,
-  profileImgUrl,
-  coverImgUrl,
-  address,
-  phone
-) => {
+const editUser = async (id, editFields) => {
   try {
     const updatedUser = await User.findById(id);
+
     if (!updatedUser) throw "User does not exist!";
-    console.log(updatedUser);
-    updatedUser.fullName = fullname;
-    updatedUser.profileImgUrl = profileImgUrl;
-    updatedUser.coverImgUrl = coverImgUrl;
-    updatedUser.address = address;
-    updatedUser.phone = phone;
+
+    updatedUser.fullName = editFields.fullname;
+    if (editFields.profileImgUrl)
+      updatedUser.profileImgUrl = editFields.profileImgUrl;
+    if (editFields.coverImgUrl)
+      updatedUser.coverImgUrl = editFields.coverImgUrl;
+    updatedUser.location = editFields.address;
+    updatedUser.phoneNumber = editFields.phone;
+
     return await updatedUser.save();
   } catch (error) {
     console.log(error);

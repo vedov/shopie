@@ -5,7 +5,7 @@
   <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-      <%- include('../views/components/sidebar/shopSidebar.ejs') -%>
+      <%- include('../components/sidebar/sidebar.ejs') -%>
       <!-- End of Sidebar -->
 
       <!-- Content Wrapper -->
@@ -14,13 +14,12 @@
         <div id="content">
           <!-- Topbar -->
 
-          <%- include('../views/components/navbar/navbar.ejs') %>
           <!-- End of Topbar -->
           <span style="display: none" id="currentUser">
             <%= currentUser.fullName %>
           </span>
           <!-- Begin Page Content -->
-          <div class="container-fluid">
+          <div class="container-fluid my-5">
             <!-- Page Heading -->
             <div
               class="d-sm-flex align-items-center justify-content-between mb-4"
@@ -49,7 +48,19 @@
                           </div>
                         </div>
                         <div class="col-auto">
-                          <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                          <img
+                            src="<%= users[i].profileImgUrl %>"
+                            alt="..."
+                            width="60"
+                            height="60"
+                            style="
+                              max-width: 60px;
+                              max-height: 60px;
+                              width: 60px;
+                              object-fit: contain;
+                            "
+                            class="rounded mb-2 img-thumbnail"
+                          />
                         </div>
                       </div>
                     </div>

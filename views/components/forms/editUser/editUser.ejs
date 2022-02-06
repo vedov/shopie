@@ -36,7 +36,7 @@
               name="name"
               placeholder="Name"
               onKeyPress="return preventSubmit()"
-              value="<%= user.fullName%>"
+              value="<%= currentUser.fullName%>"
             />
           </div>
           <div class="form-group">
@@ -47,6 +47,7 @@
               name="address"
               placeholder="Address"
               onKeyPress="return preventSubmit()"
+              value="<%= currentUser.location%>"
             />
           </div>
 
@@ -58,6 +59,7 @@
               name="phone"
               placeholder="Phone Number"
               onKeyPress="return preventSubmit()"
+              value="<%= currentUser.phoneNumber%>"
             />
           </div>
 

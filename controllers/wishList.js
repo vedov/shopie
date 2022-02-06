@@ -26,6 +26,7 @@ const getWishList = async (req, res) => {
         wishList.push(temp);
       }
       res.render("wishList", {
+        currentUser: currentUser,
         products: wishList,
       });
     }
@@ -42,6 +43,7 @@ const addToWishList = async (req, res) => {
     const currentUser = await getCurrentUser(req, res);
     const item = await itemService.getItem(req.params.id);
     await wishListService.addToWishList(currentUser._id, item);
+    res.redirect("back");
   } catch (error) {
     res.status(404).json(error);
   }

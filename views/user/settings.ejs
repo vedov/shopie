@@ -6,7 +6,7 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
       <!-- Sidebar -->
-      <%- include('../views/components/sidebar/shopSidebar.ejs') -%>
+      <%- include('../components/sidebar/sidebar.ejs') -%>
       <!-- End of Sidebar -->
 
       <!-- Content Wrapper -->
@@ -27,7 +27,7 @@
                 <div class="overflow-hidden">
                   <div class="px-4 pt-0 pb-4 cover">
                     <img
-                      src="<%= user.coverImgUrl %>"
+                      src="<%= currentUser.coverImgUrl %>"
                       alt="..."
                       class="img-cover w-100"
                       style="max-height: 400px; width: 100%; object-fit: cover"
@@ -37,7 +37,7 @@
                     >
                       <div class="profile mr-3 d-flex flex-column">
                         <img
-                          src="<%= user.profileImgUrl %>"
+                          src="<%= currentUser.profileImgUrl %>"
                           alt="..."
                           width="200"
                           height="200"
@@ -63,35 +63,50 @@
                           </a>
                         </div>
                       </div>
-
-                      <div class="media-body mb-5">
-                        <h2 class="m-0" id="user-fullname">
-                          <b><%- user.fullName %></b>
-                        </h2>
-                        <p class="text-muted m-0">@<%- user.username %></p>
-                        <p class="text-muted m-0"><%- user.email %></p>
-                      </div>
-                      <div class="p-4 d-flex text-center">
-                        <ul class="list-inline mb-0">
-                          <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">
-                              <%- itemsCount -%>
-                            </h5>
-                            <h6 class="text-muted">Products</h6>
-                          </li>
-                          <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">
-                              <%- ordersCount -%>
-                            </h5>
-                            <h6 class="text-muted">Orders</h6>
-                          </li>
-                          <li class="list-inline-item">
-                            <h5 class="font-weight-bold mb-0 d-block">
-                              <%- acceptedCount -%>
-                            </h5>
-                            <h6 class="text-muted">Completed Orders</h6>
-                          </li>
-                        </ul>
+                      <div
+                        class="d-flex align-items-end justify-content-between w-100"
+                      >
+                        <div class="col-md-3">
+                          <h2 class="m-0" id="user-fullname">
+                            <b><%- currentUser.fullName %></b>
+                          </h2>
+                          <p class="text-muted m-0">
+                            @<%- currentUser.username %>
+                          </p>
+                          <p class="text-muted m-0"><%- currentUser.email %></p>
+                        </div>
+                        <div class="col-md-3">
+                          <p class="text-muted m-0">
+                            <%- currentUser.location %>
+                          </p>
+                          <p class="text-muted m-0">
+                            <%- currentUser.phoneNumber %>
+                          </p>
+                        </div>
+                        <div
+                          class="col-md-6 text-center d-flex justify-content-end"
+                        >
+                          <ul class="list-inline mb-0">
+                            <li class="list-inline-item">
+                              <h5 class="font-weight-bold mb-0 d-block">
+                                <%- itemsCount -%>
+                              </h5>
+                              <h6 class="text-muted">Products</h6>
+                            </li>
+                            <li class="list-inline-item">
+                              <h5 class="font-weight-bold mb-0 d-block">
+                                <%- ordersCount -%>
+                              </h5>
+                              <h6 class="text-muted">Orders</h6>
+                            </li>
+                            <li class="list-inline-item">
+                              <h5 class="font-weight-bold mb-0 d-block">
+                                <%- acceptedCount -%>
+                              </h5>
+                              <h6 class="text-muted">Completed Orders</h6>
+                            </li>
+                          </ul>
+                        </div>
                       </div>
                     </div>
                   </div>

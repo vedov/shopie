@@ -15,8 +15,8 @@ const parser = require("../middleware/cloudinary");
 
 router.get("/", userController.getDashboard);
 router.post("/", parser.array("imageUrls"), itemController.addItem);
-router.get("/catalogue", itemController.getCatalogue);
 router.post("/orders/setorderstatus/:id", orderController.setOrderStatus);
+router.get("/catalogue", itemController.getCatalogue);
 router.get("/settings", userController.getSettings);
 router.post(
   "/settings",

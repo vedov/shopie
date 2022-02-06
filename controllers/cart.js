@@ -26,6 +26,7 @@ const getCart = async (req, res) => {
         cartProducts.push(temp);
       }
       res.render("cart", {
+        currentUser: currentUser,
         customer: currentUser._id,
         products: cartProducts,
         price: cart.price,
@@ -33,6 +34,7 @@ const getCart = async (req, res) => {
       });
     }
     res.render("cart", {
+      currentUser: currentUser,
       customer: currentUser._id,
       products: "",
       price: "",

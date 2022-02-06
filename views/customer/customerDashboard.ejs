@@ -5,7 +5,7 @@
   <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-      <%- include('../views/components/sidebar/shopSidebar.ejs') -%>
+      <%- include('../components/sidebar/sidebar.ejs') -%>
       <!-- End of Sidebar -->
 
       <!-- Content Wrapper -->
@@ -47,7 +47,19 @@
                           </div>
                         </div>
                         <div class="col-auto">
-                          <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                          <img
+                            src="<%= shops[i].profileImgUrl %>"
+                            alt="..."
+                            width="60"
+                            height="60"
+                            style="
+                              max-width: 60px;
+                              max-height: 60px;
+                              width: 60px;
+                              object-fit: contain;
+                            "
+                            class="rounded mb-2 img-thumbnail"
+                          />
                         </div>
                       </div>
                     </div>
@@ -61,7 +73,7 @@
         </div>
         <!-- End of Main Content -->
         <!-- Footer -->
-        
+
         <!-- End of Footer -->
       </div>
       <!-- End of Content Wrapper -->

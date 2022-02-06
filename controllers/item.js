@@ -45,6 +45,7 @@ const getCatalogue = async (req, res) => {
     const products = await itemService.getCatalogue(currentUser._id);
 
     res.render("catalogue", {
+      currentUser: currentUser,
       products: products,
     });
   } catch (error) {
@@ -58,6 +59,7 @@ const getWishList = async (req, res) => {
     const products = await itemService.getWishList(currentUser._id);
 
     res.render("wishList", {
+      currentUser: currentUser,
       products: products,
     });
   } catch (error) {
@@ -95,6 +97,7 @@ const getItemByName = async (req, res) => {
 
 const getItem = async (req, res) => {
   try {
+    const currentUser = await getCurrentUser(req, res);
     const item = await itemService.getItem(req.params.id);
     const shop = await userService.getUser(item.shop._id);
     const category = await categoryService.getCategory(item.category._id);
@@ -109,6 +112,7 @@ const getItem = async (req, res) => {
     await itemService.setItemRating(item._id, avgRating);
 
     res.render("item", {
+      currentUser: currentUser,
       item: item,
       shop: shop,
       category: category,

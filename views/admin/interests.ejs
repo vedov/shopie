@@ -5,37 +5,31 @@
   <body id="page-top">
     <!-- Page Wrapper -->
     <div id="wrapper">
-      <%- include('../views/components/sidebar/adminSidebar.ejs') -%>
+      <%- include('../components/sidebar/adminSidebar.ejs') -%>
 
       <!-- Content Wrapper -->
       <div id="content-wrapper" class="d-flex flex-column">
         <!-- Main Content -->
         <div id="content">
           <!-- Topbar -->
-          <%- include('../views/components/navbar/navbar.ejs') %>
+
           <!-- End of Topbar -->
 
           <!-- Begin Page Content -->
-          <div class="container-fluid">
+          <div class="container-fluid my-5">
             <!-- Page Heading -->
             <div
               class="d-sm-flex align-items-center justify-content-between mb-4"
             >
               <h1 class="h3 mb-0 text-gray-800">Interests</h1>
               <a
-                class="
-                  nav-link
-                  collapsed
-                  d-none d-sm-inline-block
-                  btn btn-sm btn-primary
-                  shadow-sm
-                "
+                class="nav-link collapsed d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
                 href="#"
                 data-toggle="modal"
                 data-target="#addInterestModal"
               >
-                <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2"></i>
-                <span>Add New Interest</span>
+                <i class="fas fa-plus fa-sm fa-fw mr-2 text-white"></i>
+                <span class="text-white">Add New Interest</span>
               </a>
             </div>
 
@@ -61,22 +55,12 @@
                       <div class="row">
                         <a
                           href="#"
-                          class="
-                            d-none d-sm-inline-block
-                            btn btn-sm btn-primary
-                            shadow-sm
-                            m-1
-                          "
+                          class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm m-1"
                           ><i class="fas fa-pen fa-sm text-white"></i
                         ></a>
 
                         <a
-                          class="
-                            d-none d-sm-inline-block
-                            btn btn-sm btn-primary
-                            shadow-sm
-                            m-1
-                          "
+                          class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm m-1"
                           href="/users/delete/<%= interests[i].id %>"
                         >
                           <i class="fas fa-trash fa-sm text-white"></i>
@@ -93,10 +77,6 @@
           <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <%- include('../views/components/footer/footer.ejs') -%>
-        <!-- End of Footer -->
       </div>
       <!-- End of Content Wrapper -->
     </div>

@@ -41,7 +41,7 @@ const getUserProfile = async (req, res) => {
   try {
     const user = await userService.getUser(req.params.id);
     const userType = await userService.getUserTypeById(user.userType);
-
+    const currentUser = await getCurrentUser(req, res);
     if (userType == "Shop") {
       let items;
       if (req.params.category) {
@@ -66,6 +66,7 @@ const getUserProfile = async (req, res) => {
         types.push(item);
       });
       res.render("shop", {
+        currentUser: currentUser,
         user: user,
         products: items,
         itemsCount: items.length,
@@ -119,7 +120,7 @@ const getDashboard = async (req, res) => {
         }
       }
       res.render("customerDashboard", {
-        user: currentUser,
+        currentUser: currentUser,
         shops: shops,
       });
     } else if (userType == "Shop") {
@@ -128,7 +129,7 @@ const getDashboard = async (req, res) => {
       const orders = await orderService.getShopOrders(currentUser);
 
       res.render("shopDashboard", {
-        user: currentUser,
+        currentUser: currentUser,
         categories: categories,
         types: types,
         nrItems: items.length,
@@ -166,7 +167,7 @@ const getDashboard = async (req, res) => {
       }
 
       res.render("adminDashboard", {
-        user: currentUser,
+        currentUser: currentUser,
         nrUsers: users.length,
         nrItems: items.length,
         nrCustomers: customers.length,
@@ -201,7 +202,7 @@ const getSettings = async (req, res) => {
     const items = await itemService.getCatalogue(currentUser._id);
     const accepted = await orderService.getCompletedOrders(currentUser);
     res.render("settings", {
-      user: currentUser,
+      currentUser: currentUser,
       itemsCount: items.length,
       ordersCount: orders.length,
       acceptedCount: accepted.length,
@@ -228,17 +229,27 @@ const addUser = async (req, res) => {
 const editUser = async (req, res) => {
   try {
     const currentUser = await getCurrentUser(req, res);
-    const data = req.files;
-    const profileUrl = data.profileImgUrl[0].path;
-    const coverUrl = data.coverImgUrl[0].path;
-    const updatedUser = await userService.editUser(
-      currentUser._id,
-      req.body.name,
-      profileUrl,
-      coverUrl,
-      req.body.address,
-      req.body.phone
-    );
+    let data;
+    let profileUrl;
+    let coverUrl;
+    if (
+      typeof req.files.profileImgUrl !== "undefined" &&
+      typeof req.files.coverImgUrl !== "undefined"
+    ) {
+      data = req.files;
+      profileUrl = data.profileImgUrl[0].path;
+      coverUrl = data.coverImgUrl[0].path;
+    }
+
+    const editFields = {
+      fullname: req.body.name,
+      profileImgUrl: profileUrl,
+      coverImgUrl: coverUrl,
+      address: req.body.address,
+      phone: req.body.phone,
+    };
+    console.log(editFields);
+    const updatedUser = await userService.editUser(currentUser._id, editFields);
     res.redirect("back");
   } catch (error) {
     if (error.details === "User does not exist!") res.status(404).json(error);

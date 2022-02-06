@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  location: LocationSchema,
+  location: String,
   phoneNumber: String,
   userType: {
     type: Schema.Types.ObjectId,
@@ -35,9 +35,11 @@ const UserSchema = new Schema({
   },
   profileImgUrl: {
     type: String,
+    default: "https://avatars.dicebear.com/v2/male/:seed.svg",
   },
   coverImgUrl: {
     type: String,
+    default: "https://wallpaperaccess.com/full/3898677.jpg",
   },
   interests: [{ type: Schema.Types.ObjectId, ref: "Interest" }],
   active: {

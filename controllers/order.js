@@ -29,8 +29,9 @@ const getOrders = async (req, res) => {
       orders = await orderService.getCustomerOrders(currentUser);
     }
     res.render("orders", {
+      currentUser: currentUser,
       orders: orders,
-      user: currentUser,
+
       userType: userType,
     });
   } catch (error) {
