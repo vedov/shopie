@@ -14,7 +14,6 @@ const loginRouter = require("./routes/login");
 const registerRouter = require("./routes/register");
 const userRouter = require("./routes/user");
 const itemRouter = require("./routes/item");
-const tagRouter = require("./routes/tag");
 const categoryRouter = require("./routes/category");
 const interestRouter = require("./routes/interest");
 const itemTypeRouter = require("./routes/itemType");
@@ -24,7 +23,16 @@ const http = require("http");
 let socketio = require("./socketio");
 
 // View engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", [
+  path.join(__dirname, "views"),
+  path.join(__dirname, "views/admin"),
+  path.join(__dirname, "views/customer"),
+  path.join(__dirname, "views/shop"),
+  path.join(__dirname, "views/customer"),
+  path.join(__dirname, "views/landing"),
+  path.join(__dirname, "views/user"),
+]);
+
 app.set("view engine", "ejs");
 
 app.use(logger("dev"));
@@ -41,7 +49,6 @@ app.use("/register", registerRouter);
 app.use("/login", loginRouter);
 app.use("/user", userRouter);
 app.use("/item", itemRouter);
-app.use("/tag", tagRouter);
 app.use("/category", categoryRouter);
 app.use("/interest", interestRouter);
 app.use("/itemtype", itemTypeRouter);

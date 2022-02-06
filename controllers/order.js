@@ -57,6 +57,7 @@ const addOrder = async (req, res) => {
     tempItems = itemData.split(",");
     for (item of tempItems) {
       const temp = await itemService.getItem(item);
+      temp.numberOfOrders++;
       items.push(temp);
     }
     sendOrderMailToCustomer(customer.email);
@@ -66,7 +67,7 @@ const addOrder = async (req, res) => {
       orderItems: items,
       price: price,
     });
-    //const cart = await cartService.clearCart(customer._id);
+    const cart = await cartService.clearCart(customer._id);
     res.redirect("/user/orders");
   } catch (error) {
     res.status(400).json(error);

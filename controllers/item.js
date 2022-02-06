@@ -18,11 +18,13 @@ const getCurrentUser = async (req, res) => {
 
 const getItems = async (req, res) => {
   try {
-    const Items = await itemService.getItems();
+    const items = await itemService.getItems();
 
     res.render("items", {
-      items: Items,
+      items: items,
     });
+
+    const categories = await categoryService.getCategories();
   } catch (error) {
     res.status(404).json(error);
   }

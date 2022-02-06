@@ -30,7 +30,6 @@ const getCustomerOrders = async (user) => {
     let customerOrders = [];
 
     for (order of orders) {
-      console.log(order);
       if (user._id.toString() == order.customer._id.toString()) {
         customerOrders.push(order);
       }

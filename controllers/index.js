@@ -22,8 +22,8 @@ const getLanding = async (req, res) => {
   const interestItems = await getInterestItems(req, res);
   res.render("landing", {
     randomItems: randomItems,
-    bestItems: bestItems,
     interestItems: interestItems,
+    bestItems: bestItems,
     categories: categories,
   });
 };
@@ -50,6 +50,7 @@ const getBestItems = async (req, res) => {
       const avgRating = await getAvgItemRating(product);
       product.avgRating = avgRating;
     }
+    items.sort((a, b) => (a.avgRating > b.avgRating ? -1 : 1));
     items.sort((a, b) => (a.avgRating > b.avgRating ? -1 : 1));
     for (i = 0; i < 4; i++) {
       bestItems.push(items[i]);

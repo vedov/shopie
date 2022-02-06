@@ -14,8 +14,8 @@ const sendMailToCustomer = async (email) => {
       from: '"No reply @ Shopie" <shopieshop9@gmail.com>',
       to: email,
       subject: "Order Received",
-      text: "We received your order successfully",
-      html: "<p>We received your order successfully. It should arrive shortly, in a few business days.</p>",
+      text: "Your Order was accepted",
+      html: "<p>Your order was accepted and is being processed. It should arrive shortly.</p>",
     });
 
     console.log(`Message sent: ${mailStatus.messageId}`);

@@ -53,7 +53,7 @@ const deleteCategory = async (req, res) => {
   try {
     const removedCategory = await categoryService.deleteCategory(req.params.id);
     console.log("Deleted:", req.params.id);
-
+    res.redirect("back");
     /* res.status(200).json(removedUser); */
   } catch (error) {
     res.status(404).json(error);

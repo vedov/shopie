@@ -34,6 +34,8 @@ class AuthService {
 
     return this.createToken(user);
   }
+
+  
 }
 
 module.exports = AuthService;

@@ -98,7 +98,6 @@ const getDashboard = async (req, res) => {
   try {
     const currentUser = await getCurrentUser(req, res);
     const userType = await userService.getUserTypeById(currentUser.userType);
-    const test = await userService.getUser(currentUser.id);
     const categoriesData = await categoryService.getCategories(req, res);
     const typesData = await itemTypeService.getItemTypes(req, res);
 
@@ -119,7 +118,6 @@ const getDashboard = async (req, res) => {
           shops.push(user);
         }
       }
-      console.log(shops);
       res.render("customerDashboard", {
         user: currentUser,
         shops: shops,
@@ -137,7 +135,51 @@ const getDashboard = async (req, res) => {
         nrCompleted: completed.length,
         nrOrders: orders.length,
       });
-    } else res.render("adminDashboard", { user: currentUser });
+    } else {
+      const users = await userService.getUsers();
+      const items = await itemService.getItems();
+      let customers = [];
+      let shops = [];
+      let tags = [];
+      let completedOrders = [];
+      let shopOrders = [];
+      let customerOrders = [];
+      for (key of users) {
+        const typeCheck = await userService.getUserTypeById(key.userType);
+        const completed = await orderService.getCompletedOrders(key);
+        completedOrders.push(completed);
+        if (typeCheck == "Customer") {
+          const orders = await orderService.getCustomerOrders(key);
+          customerOrders.push(orders);
+          customers.push(typeCheck);
+        }
+        if (typeCheck == "Shop") {
+          const orders = await orderService.getShopOrders(key);
+          shopOrders.push(orders);
+          shops.push(typeCheck);
+        }
+      }
+      for (key of items) {
+        for (tag of key.tags) {
+          tags.push(tag);
+        }
+      }
+
+      res.render("adminDashboard", {
+        user: currentUser,
+        nrUsers: users.length,
+        nrItems: items.length,
+        nrCustomers: customers.length,
+        nrShops: shops.length,
+        nrCompleted: completedOrders.length,
+        nrShopOrders: shopOrders.length,
+        nrCustomerOrders: customerOrders.length,
+        nrTags: tags.length,
+      });
+      /* 
+        ,
+         */
+    }
   } catch (error) {
     res.status(404).json(error);
   }
@@ -197,8 +239,29 @@ const deleteUser = async (req, res) => {
   try {
     const removedUser = await userService.deleteUser(req.params.id);
     console.log("Deleted:", req.params.id);
-    res.redirect("user/users");
+    res.redirect("back");
     /* res.status(200).json(removedUser); */
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
+const archiveUser = async (req, res) => {
+  try {
+    const archivedUser = await userService.archiveUser(req.params.id);
+    console.log("Archived:", req.params.id);
+    res.redirect("back");
+  } catch (error) {
+    res.status(404).json(error);
+  }
+};
+
+const getMessages = async (req, res) => {
+  try {
+    const currentUser = await getCurrentUser(req, res);
+    const users = await userService.getUsers(req, res);
+
+    res.render("messages", { currentUser: currentUser, users: users });
   } catch (error) {
     res.status(404).json(error);
   }
@@ -214,4 +277,6 @@ module.exports = {
   getDashboard,
   getSettings,
   getUserProfile,
+  archiveUser,
+  getMessages,
 };

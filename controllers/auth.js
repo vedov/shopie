@@ -11,11 +11,9 @@ const login = async (req, res) => {
     try {
       const token = await AuthService.loginUsers(login, password);
 
-      console.log(token);
-
       /* res.status(200).send({ token }).end(); */
       res.cookie("token", token);
-      console.log("prosao");
+
       res.redirect("/user");
     } catch (error) {
       res.status(404).send(error);
@@ -87,6 +85,11 @@ const getLogin = async (req, res) => {
   res.render("login");
 };
 
+const logout = async (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/");
+};
+
 module.exports = {
   getRegister,
   register,
@@ -94,4 +97,5 @@ module.exports = {
   login,
   getInterestSelect,
   addUserInterest,
+  logout,
 };

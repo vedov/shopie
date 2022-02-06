@@ -54,6 +54,10 @@ const ItemSchema = new Schema({
     type: Number,
     default: 0,
   },
+  numberOfOrders: {
+    type: Number,
+    default: 0,
+  },
   review: [
     {
       type: Schema.Types.ObjectId,

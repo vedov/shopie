@@ -20,7 +20,6 @@ const verifyToken = async (req, res, next) => {
 
 const verifyCookie = async (req, res) => {
   try {
-    console.log("aaaaaaaaa", req.cookies["token"]);
     const cookie = req.cookies["token"];
     if (!cookie) {
       res.status(401).json({ error: "Unauthorized access!" }).end();

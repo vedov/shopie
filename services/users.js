@@ -118,6 +118,18 @@ const deleteUser = async (id) => {
   }
 };
 
+const archiveUser = async (id) => {
+  try {
+    const archivedUser = await User.findById(id);
+    archivedUser.active = false;
+    archivedUser.save();
+    if (!removedUser) throw "User does not exist!";
+    return archivedUser;
+  } catch (error) {
+    throw { error: "Error while trying to delete user!", details: error };
+  }
+};
+
 const addToUserRevenue = async (id, revenue) => {
   const user = await User.findById(id);
   user.revenue = revenue;
@@ -167,4 +179,5 @@ module.exports = {
   addToUserInterests,
   getUserByName,
   getUserInterests,
+  archiveUser,
 };
